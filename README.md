@@ -23,6 +23,7 @@ Transition Map Builder is a full-stack app to design, edit, and analyze screen t
 ```powershell
 .\START_ALL.ps1
 ```
+Note: this script only starts services. Install dependencies once first.
 
 ### Manual
 Backend:
@@ -32,14 +33,21 @@ python -m venv venv
 # Windows: venv\Scripts\activate
 # macOS/Linux: source venv/bin/activate
 pip install -r requirements.txt
-uvicorn main:app --reload --port 8000
+python main.py
 ```
 
 Frontend:
 ```bash
 cd frontend
 npm install
-npm run dev
+npm start
+```
+
+### From project root
+```bash
+npm run start:backend
+npm run start:frontend
+npm run start:all
 ```
 
 ## URLs

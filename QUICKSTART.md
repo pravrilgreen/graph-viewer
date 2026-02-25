@@ -5,28 +5,34 @@
 .\START_ALL.ps1
 ```
 
-The script will:
-1. Create backend `venv` if missing
-2. Install backend dependencies
-3. Install frontend dependencies
-4. Open 2 PowerShell windows for backend/frontend dev servers
+The script will open 2 PowerShell windows:
+1. Backend: `python main.py`
+2. Frontend: `npm start`
+
+Prerequisite: install dependencies once before first run.
 
 ## Manual setup
 
 ### Backend
 ```bash
 cd backend
-python -m venv venv
-# Windows: venv\Scripts\activate
 pip install -r requirements.txt
-uvicorn main:app --reload --port 8000
+python main.py
 ```
 
 ### Frontend
 ```bash
 cd frontend
 npm install
-npm run dev
+npm start
+```
+
+## From project root
+```bash
+npm run start:backend
+npm run start:frontend
+# or run both
+npm run start:all
 ```
 
 ## Verify
