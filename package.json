@@ -6,8 +6,9 @@
   "license": "Proprietary",
   "private": true,
   "scripts": {
-    "start:backend": "cd backend && python -m venv venv && source venv/bin/activate && pip install -r requirements.txt && uvicorn main:app --reload",
-    "start:frontend": "cd frontend && npm install && npm run dev",
+    "start": "npm run start:frontend",
+    "start:backend": "cd backend && python main.py",
+    "start:frontend": "cd frontend && npm start",
     "start:all": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
     "seed": "cd backend && python seed.py"
   },
