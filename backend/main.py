@@ -1,5 +1,5 @@
 """
-FastAPI backend for Transition Map Builder
+FastAPI backend for Graph Viewer
 """
 
 import json
@@ -31,7 +31,7 @@ logging.getLogger("uvicorn").setLevel(logging.WARNING)
 # ===================== Application Setup =====================
 
 app = FastAPI(
-    title="Transition Map Builder API",
+    title="Graph Viewer API",
     description="API for managing and visualizing automotive screen transitions",
     version="1.0.0",
 )
@@ -100,7 +100,7 @@ load_graph_from_file()
 async def root():
     """Root endpoint"""
     return {
-        "message": "Transition Map Builder API",
+        "message": "Graph Viewer API",
         "version": "1.0.0",
         "docs": "/docs",
     }
@@ -109,7 +109,7 @@ async def root():
 @app.get("/health")
 async def health_check():
     """Health check endpoint"""
-    return {"status": "healthy", "service": "transition-map-builder"}
+    return {"status": "healthy", "service": "graph-viewer"}
 
 
 # ===================== Screen Endpoints =====================

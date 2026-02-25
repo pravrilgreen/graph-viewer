@@ -1,6 +1,6 @@
-# Transition Map Builder
+# Graph Viewer
 
-Transition Map Builder is a full-stack app to design, edit, and analyze screen transition flows.
+Graph Viewer is a full-stack app to design, edit, and analyze screen transition flows.
 
 ## Stack
 - Backend: FastAPI + NetworkX

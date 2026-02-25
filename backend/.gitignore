@@ -36,7 +36,7 @@ Thumbs.db
 
 # Data files
 *.json
-graph_data.json
+!graph_data.json
 
 # Environment
 .env
