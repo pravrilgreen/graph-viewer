@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" fill="none">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1200" y2="720" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="hsl(296 65% 92%)"/>
+      <stop offset="1" stop-color="hsl(326 72% 84%)"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="720" rx="36" fill="url(#g)"/>
+  <rect x="52" y="48" width="1096" height="624" rx="30" fill="white" fill-opacity="0.82"/>
+  <text x="86" y="146" fill="#0f172a" font-size="56" font-family="Segoe UI, Arial, sans-serif" font-weight="700">Audio Settings</text>
+  <text x="86" y="202" fill="#334155" font-size="26" font-family="Consolas, monospace">audio_settings</text>
+  <rect x="86" y="248" width="1028" height="358" rx="24" fill="hsl(296 55% 96%)" stroke="hsl(296 30% 70%)" stroke-width="2"/>
+  <circle cx="170" cy="326" r="22" fill="hsl(296 50% 60%)"/>
+  <rect x="210" y="306" width="300" height="22" rx="11" fill="hsl(296 40% 70%)"/>
+  <rect x="210" y="342" width="210" height="18" rx="9" fill="hsl(296 35% 78%)"/>
+</svg>
