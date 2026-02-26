@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Connection, Edge, Node, useEdgesState, useNodesState } from 'reactflow';
 
 import { GraphStatsDto, ScreenDto, graphAPI, screenAPI, transitionAPI } from '../api';
@@ -22,12 +22,14 @@ const defaultStats: GraphStatsDto = {
   num_transitions: 0,
   density: 0,
 };
+const MIN_PATH_FINDING_VISIBLE_MS = 300;
 
 const Dashboard: React.FC = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState<Node[]>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge[]>([]);
   const [screens, setScreens] = useState<ScreenDto[]>([]);
   const [highlightedPaths, setHighlightedPaths] = useState<string[][]>([]);
+  const [highlightedTransitionIds, setHighlightedTransitionIds] = useState<string[]>([]);
 
   const [history, setHistory] = useState<GraphState[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
@@ -36,6 +38,12 @@ const Dashboard: React.FC = () => {
   const [selectedEdge, setSelectedEdge] = useState<Edge | null>(null);
   const [focusNodeId, setFocusNodeId] = useState<string | null>(null);
   const [focusVersion, setFocusVersion] = useState(0);
+  const [focusPathNodeIds, setFocusPathNodeIds] = useState<string[] | null>(null);
+  const [focusPathVersion, setFocusPathVersion] = useState(0);
+  const [isPathFinding, setIsPathFinding] = useState(false);
+  const [selectedNetworkId, setSelectedNetworkId] = useState<'all' | number>('all');
+  const pathFindingStartedAtRef = useRef<number | null>(null);
+  const pathFindingHideTimerRef = useRef<number | null>(null);
   const [stats, setStats] = useState<GraphStatsDto>(defaultStats);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
@@ -89,6 +97,16 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     loadGraph();
   }, [loadGraph]);
+
+  useEffect(
+    () => () => {
+      if (pathFindingHideTimerRef.current !== null) {
+        window.clearTimeout(pathFindingHideTimerRef.current);
+        pathFindingHideTimerRef.current = null;
+      }
+    },
+    [],
+  );
 
   const handleUndo = () => {
     if (historyIndex <= 0) {
@@ -162,6 +180,7 @@ const Dashboard: React.FC = () => {
     if (!keepPathHighlight) {
       setHighlightedPaths([]);
     }
+    setFocusPathNodeIds(null);
     setSelectedEdge(null);
     setSelectedNode(targetNode);
     setFocusNodeId(targetId);
@@ -175,14 +194,22 @@ const Dashboard: React.FC = () => {
     setSelectedNode(null);
     setSelectedEdge(null);
     setFocusNodeId(null);
-    setHighlightedPaths([path]);
+    setFocusPathNodeIds(path);
+    setFocusPathVersion((prev) => prev + 1);
   };
 
   const handleSearchPathFound = useCallback((paths: string[][]) => {
     setSelectedNode(null);
     setSelectedEdge(null);
     setFocusNodeId(null);
+    if (paths.length === 0) {
+      setFocusPathNodeIds(null);
+    }
     setHighlightedPaths(paths);
+  }, []);
+
+  const handleSearchPathTransitionsFound = useCallback((transitionIds: string[]) => {
+    setHighlightedTransitionIds(transitionIds);
   }, []);
 
   const handlePathStepPreview = useCallback(
@@ -193,22 +220,161 @@ const Dashboard: React.FC = () => {
         return;
       }
       // Pan/zoom only. Keep search highlight and avoid changing selection focus state.
+      setFocusPathNodeIds(null);
       setFocusNodeId(screenId);
       setFocusVersion((prev) => prev + 1);
     },
     [nodes, pushToast],
   );
 
+  const handlePathFindingChange = useCallback((isFinding: boolean) => {
+    if (pathFindingHideTimerRef.current !== null) {
+      window.clearTimeout(pathFindingHideTimerRef.current);
+      pathFindingHideTimerRef.current = null;
+    }
+
+    if (isFinding) {
+      pathFindingStartedAtRef.current = Date.now();
+      setIsPathFinding(true);
+      return;
+    }
+
+    const startedAt = pathFindingStartedAtRef.current ?? Date.now();
+    const elapsed = Date.now() - startedAt;
+    const remaining = Math.max(0, MIN_PATH_FINDING_VISIBLE_MS - elapsed);
+
+    if (remaining === 0) {
+      setIsPathFinding(false);
+      pathFindingStartedAtRef.current = null;
+      return;
+    }
+
+    pathFindingHideTimerRef.current = window.setTimeout(() => {
+      setIsPathFinding(false);
+      pathFindingStartedAtRef.current = null;
+      pathFindingHideTimerRef.current = null;
+    }, remaining);
+  }, []);
+
+  const handleSelectNetwork = useCallback((networkId: 'all' | number) => {
+    setSelectedNetworkId(networkId);
+    setHighlightedPaths([]);
+    setHighlightedTransitionIds([]);
+    setSelectedNode(null);
+    setSelectedEdge(null);
+    setFocusNodeId(null);
+    setFocusPathNodeIds(null);
+  }, []);
+
+  const networkCount = useMemo(() => {
+    if (nodes.length === 0) {
+      return 0;
+    }
+
+    const adjacency = new Map<string, Set<string>>();
+    nodes.forEach((node) => adjacency.set(node.id, new Set<string>()));
+
+    edges.forEach((edge) => {
+      if (!adjacency.has(edge.source)) {
+        adjacency.set(edge.source, new Set<string>());
+      }
+      if (!adjacency.has(edge.target)) {
+        adjacency.set(edge.target, new Set<string>());
+      }
+      adjacency.get(edge.source)!.add(edge.target);
+      adjacency.get(edge.target)!.add(edge.source);
+    });
+
+    const visited = new Set<string>();
+    let components = 0;
+
+    nodes.forEach((node) => {
+      if (visited.has(node.id)) {
+        return;
+      }
+
+      components += 1;
+      const queue = [node.id];
+      visited.add(node.id);
+
+      while (queue.length > 0) {
+        const current = queue.shift()!;
+        const neighbors = adjacency.get(current) || new Set<string>();
+        neighbors.forEach((neighbor) => {
+          if (!visited.has(neighbor)) {
+            visited.add(neighbor);
+            queue.push(neighbor);
+          }
+        });
+      }
+    });
+
+    return components;
+  }, [nodes, edges]);
+
+  const networkOptions = useMemo(() => {
+    const unique = new Set<number>();
+    nodes.forEach((node: any) => {
+      const raw = node?.data?.networkId;
+      if (typeof raw === 'number' && Number.isInteger(raw) && raw >= 0) {
+        unique.add(raw);
+      }
+    });
+    return [...unique].sort((a, b) => a - b);
+  }, [nodes]);
+
+  const screenNetworkMap = useMemo(() => {
+    const map = new Map<string, number>();
+    nodes.forEach((node: any) => {
+      const networkId = node?.data?.networkId;
+      if (typeof networkId === 'number') {
+        map.set(node.id, networkId);
+      }
+    });
+    return map;
+  }, [nodes]);
+
+  const visibleScreenIds = useMemo(() => {
+    const allScreenIds = screens.map((screen) => screen.screen_id);
+    if (selectedNetworkId === 'all') {
+      return allScreenIds;
+    }
+    return allScreenIds.filter((screenId) => screenNetworkMap.get(screenId) === selectedNetworkId);
+  }, [screens, selectedNetworkId, screenNetworkMap]);
+
+  useEffect(() => {
+    if (networkCount <= 1) {
+      if (selectedNetworkId !== 'all') {
+        setSelectedNetworkId('all');
+      }
+      return;
+    }
+
+    if (selectedNetworkId === 'all') {
+      return;
+    }
+
+    if (!networkOptions.includes(selectedNetworkId)) {
+      setSelectedNetworkId(networkOptions[0] ?? 'all');
+    }
+  }, [networkCount, networkOptions, selectedNetworkId]);
+
   const activePanel = useMemo(() => {
     if (selectedNode) {
       return (
         <>
           <PathFinder
+            networkCount={networkCount}
+            networkOptions={networkOptions}
+            selectedNetworkId={selectedNetworkId}
+            onSelectNetwork={handleSelectNetwork}
+            onFindingChange={handlePathFindingChange}
             onNotify={pushToast}
             onPathFound={handleSearchPathFound}
+            onPathTransitionsFound={handleSearchPathTransitionsFound}
             onPathRouteClick={handleFocusPathRoute}
             onPathStepClick={handlePathStepPreview}
-            screens={screens.map((screen) => screen.screen_id)}
+            screens={visibleScreenIds}
             stats={stats}
           />
           <NodeEditor
@@ -223,14 +389,21 @@ const Dashboard: React.FC = () => {
       return (
         <>
           <PathFinder
+            networkCount={networkCount}
+            networkOptions={networkOptions}
+            selectedNetworkId={selectedNetworkId}
+            onSelectNetwork={handleSelectNetwork}
+            onFindingChange={handlePathFindingChange}
             onNotify={pushToast}
             onPathFound={handleSearchPathFound}
+            onPathTransitionsFound={handleSearchPathTransitionsFound}
             onPathRouteClick={handleFocusPathRoute}
             onPathStepClick={handlePathStepPreview}
-            screens={screens.map((screen) => screen.screen_id)}
+            screens={visibleScreenIds}
             stats={stats}
           />
           <EdgeEditor
+            key={selectedEdge.id}
             edge={selectedEdge}
             onClose={() => setSelectedEdge(null)}
             onNotify={pushToast}
@@ -245,16 +418,38 @@ const Dashboard: React.FC = () => {
     return (
       <>
         <PathFinder
+          networkCount={networkCount}
+          networkOptions={networkOptions}
+          selectedNetworkId={selectedNetworkId}
+          onSelectNetwork={handleSelectNetwork}
+          onFindingChange={handlePathFindingChange}
           onNotify={pushToast}
           onPathFound={handleSearchPathFound}
+          onPathTransitionsFound={handleSearchPathTransitionsFound}
           onPathRouteClick={handleFocusPathRoute}
           onPathStepClick={handlePathStepPreview}
-          screens={screens.map((screen) => screen.screen_id)}
+          screens={visibleScreenIds}
           stats={stats}
         />
       </>
     );
-  }, [handlePathStepPreview, handleSearchPathFound, loadGraph, pushToast, screens, selectedEdge, selectedNode, stats]);
+  }, [
+    handlePathFindingChange,
+    handleSelectNetwork,
+    handlePathStepPreview,
+    handleSearchPathFound,
+    handleSearchPathTransitionsFound,
+    loadGraph,
+    pushToast,
+    screens,
+    visibleScreenIds,
+    selectedEdge,
+    selectedNode,
+    stats,
+    networkCount,
+    networkOptions,
+    selectedNetworkId,
+  ]);
 
   return (
     <main className="app-shell">
@@ -281,7 +476,7 @@ const Dashboard: React.FC = () => {
           onNotify={pushToast}
           onRedo={handleRedo}
           onRefresh={() => loadGraph(true)}
-          screenIds={screens.map((screen) => screen.screen_id)}
+          screenIds={visibleScreenIds}
           onUndo={handleUndo}
         />
       </section>
@@ -291,27 +486,41 @@ const Dashboard: React.FC = () => {
           <GraphView
             edges={edges}
             highlightedPaths={highlightedPaths}
+            highlightedTransitionIds={highlightedTransitionIds}
             nodes={nodes}
             onConnect={onConnect}
             onEdgeClick={(edge) => {
               setHighlightedPaths([]);
+              setHighlightedTransitionIds([]);
+              setFocusNodeId(null);
+              setFocusPathNodeIds(null);
               setSelectedEdge(edge);
               setSelectedNode(null);
             }}
             onEdgesChange={onEdgesChange}
             onNodeClick={(node) => {
               setHighlightedPaths([]);
+              setHighlightedTransitionIds([]);
+              setFocusNodeId(null);
+              setFocusPathNodeIds(null);
               setSelectedNode(node);
               setSelectedEdge(null);
             }}
             onNodesChange={onNodesChange}
             onPaneClick={() => {
               setHighlightedPaths([]);
+              setHighlightedTransitionIds([]);
+              setFocusNodeId(null);
+              setFocusPathNodeIds(null);
               setSelectedEdge(null);
               setSelectedNode(null);
             }}
             focusNodeId={focusNodeId}
             focusVersion={focusVersion}
+            focusPathNodeIds={focusPathNodeIds}
+            focusPathVersion={focusPathVersion}
+            isPathFinding={isPathFinding}
+            activeNetworkId={selectedNetworkId === 'all' ? null : selectedNetworkId}
             selectedEdgeId={selectedEdge?.id || null}
             selectedNodeId={selectedNode?.id || null}
           />

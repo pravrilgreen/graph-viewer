@@ -3,15 +3,6 @@ import { BaseEdge, EdgeLabelRenderer, EdgeProps } from 'reactflow';
 
 type XYPoint = { x: number; y: number };
 
-const hashString = (value: string) => {
-  let hash = 0;
-  for (let idx = 0; idx < value.length; idx += 1) {
-    hash = (hash << 5) - hash + value.charCodeAt(idx);
-    hash |= 0;
-  }
-  return Math.abs(hash);
-};
-
 const CustomEdge: React.FC<EdgeProps> = ({
   sourceX,
   sourceY,
@@ -39,21 +30,39 @@ const CustomEdge: React.FC<EdgeProps> = ({
     .map((point: XYPoint, idx: number) => `${idx === 0 ? 'M' : 'L'} ${point.x},${point.y}`)
     .join(' ');
 
-  const midIndex = Math.floor((polyPoints.length - 1) / 2);
-  const nextIndex = Math.min(polyPoints.length - 1, midIndex + 1);
-  const basePoint = polyPoints[midIndex];
-  const neighborPoint = polyPoints[nextIndex] || basePoint;
-  const segDx = neighborPoint.x - basePoint.x;
-  const segDy = neighborPoint.y - basePoint.y;
-  const segLength = Math.max(Math.hypot(segDx, segDy), 1);
-  const normalX = -segDy / segLength;
-  const normalY = segDx / segLength;
-  const labelX = (basePoint.x + neighborPoint.x) / 2;
-  const labelY = (basePoint.y + neighborPoint.y) / 2;
+  let labelX = (sourceX + targetX) / 2;
+  let labelY = (sourceY + targetY) / 2;
+  const segments: Array<{ start: XYPoint; end: XYPoint; length: number }> = [];
+  let totalLength = 0;
 
-  const hashBase = `${data?.from_screen || ''}-${data?.to_screen || ''}-${data?.action_type || ''}`;
-  const offsetBucket = (hashString(hashBase) % 3) - 1;
-  const labelOffset = hasRoutePoints ? offsetBucket * 6 : offsetBucket * 3;
+  for (let idx = 0; idx < polyPoints.length - 1; idx += 1) {
+    const start = polyPoints[idx];
+    const end = polyPoints[idx + 1];
+    const length = Math.hypot(end.x - start.x, end.y - start.y);
+    if (length <= 0.001) {
+      continue;
+    }
+    segments.push({ start, end, length });
+    totalLength += length;
+  }
+
+  if (segments.length > 0 && totalLength > 0) {
+    const halfLength = totalLength / 2;
+    let walked = 0;
+
+    for (let idx = 0; idx < segments.length; idx += 1) {
+      const segment = segments[idx];
+      if (walked + segment.length >= halfLength) {
+        const remain = halfLength - walked;
+        const ratio = remain / segment.length;
+        labelX = segment.start.x + (segment.end.x - segment.start.x) * ratio;
+        labelY = segment.start.y + (segment.end.y - segment.start.y) * ratio;
+        break;
+      }
+      walked += segment.length;
+    }
+  }
+
   const labelText = `${data?.action_type || ''}`;
 
   return (
@@ -80,7 +89,8 @@ const CustomEdge: React.FC<EdgeProps> = ({
             }}
             role="button"
             style={{
-              transform: `translate(-50%, -50%) translate(${labelX + normalX * labelOffset}px, ${labelY + normalY * labelOffset}px)`,
+              transform: `translate(-50%, -50%) translate(${labelX}px, ${labelY}px)`,
+              transformOrigin: 'center center',
             }}
             tabIndex={0}
           >

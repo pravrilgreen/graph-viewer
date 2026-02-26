@@ -36,6 +36,8 @@ def build_seed_data():
         "bluetooth_pairing",
         "update_center",
         "diagnostics",
+        "dummy_screen_1",
+        "dummy_screen_2",
     ]
 
     screens = [{"screen_id": screen_id, "imagePath": f"/mock-screens/{screen_id}.svg"} for screen_id in screen_ids]
@@ -104,7 +106,6 @@ def build_seed_data():
         "messages",
         "calendar",
         "camera",
-        "settings",
         "help_center",
         "update_center",
         "diagnostics",
@@ -114,15 +115,12 @@ def build_seed_data():
     add_transition("search", "navigation", "click", "Open route result", 2, ["search_query_ready"], ["result_index=0"])
     add_transition("search", "phone", "click", "Call contact from search", 2, ["contact_has_phone"], ["contact_type=mobile"])
     add_transition("search", "settings", "click", "Open settings from search", 2, [], ["entry=quick_setting"])
+    add_transition("nav_menu", "settings", "click", "Navigate to settings")
 
     for sub in [
-        "display_settings",
         "audio_settings",
         "connectivity_settings",
-        "privacy_settings",
-        "vehicle_settings",
-        "update_center",
-        "diagnostics",
+        "display_settings",
     ]:
         add_transition("settings", sub, "click", f"Open {sub}")
         add_transition(sub, "settings", "click", "Back to settings")
@@ -151,6 +149,45 @@ def build_seed_data():
 
     add_transition("climate_control", "energy_dashboard", "swipe", "Swipe to energy panel")
     add_transition("energy_dashboard", "climate_control", "swipe", "Back to climate panel")
+
+    add_transition("dummy_screen_1", "dummy_screen_2", "swipe", "Go to dummy screen 2")
+    add_transition(
+        "dummy_screen_1",
+        "dummy_screen_2",
+        "click",
+        "Open dummy screen 2 via shortcut",
+        2,
+        ["shortcut_enabled"],
+        ["entry=shortcut_button"],
+    )
+    add_transition(
+        "dummy_screen_1",
+        "dummy_screen_2",
+        "hardware_button",
+        "Jump to dummy screen 2 via hardware key",
+        3,
+        ["hardware_key_mapped"],
+        ["key=F1"],
+    )
+    add_transition("dummy_screen_2", "dummy_screen_1", "swipe", "Back to dummy screen 1")
+    add_transition(
+        "dummy_screen_2",
+        "dummy_screen_1",
+        "click",
+        "Return to dummy screen 1 from quick action",
+        2,
+        ["quick_action_available"],
+        ["entry=quick_return"],
+    )
+    add_transition(
+        "dummy_screen_2",
+        "dummy_screen_1",
+        "hardware_button",
+        "Return to dummy screen 1 via hardware key",
+        3,
+        ["hardware_key_mapped"],
+        ["key=F2"],
+    )
 
     add_transition("onboarding", "wifi_setup", "click", "Setup internet first")
     add_transition("onboarding", "home", "click", "Skip onboarding")

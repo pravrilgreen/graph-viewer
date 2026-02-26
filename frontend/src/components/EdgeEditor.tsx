@@ -66,6 +66,7 @@ const EdgeEditor: React.FC<EdgeEditorProps> = ({ edge, onClose, onSaved, onNotif
     try {
       setLoading(true);
       await transitionAPI.updateTransition({
+        transition_id: edge.data?.transition_id,
         from_screen: edge.source,
         to_screen: edge.target,
         action: {

@@ -1,40 +1,52 @@
 # Quickstart
 
-## Fastest way (Windows)
+## 1) Prepare env files
+
+1. Copy `backend/.env.example` to `backend/.env`
+2. Copy `frontend/.env.example` to `frontend/.env`
+
+## 2) Fastest way on Windows
+
 ```powershell
 .\START_ALL.ps1
 ```
 
-The script will open 2 PowerShell windows:
+The script opens 2 PowerShell windows:
 1. Backend: `python main.py`
 2. Frontend: `npm start`
 
-Prerequisite: install dependencies once before first run.
-
-## Manual setup
+## 3) Manual setup
 
 ### Backend
+
 ```bash
 cd backend
+python -m venv venv
+# Windows: venv\Scripts\activate
+# macOS/Linux: source venv/bin/activate
 pip install -r requirements.txt
 python main.py
 ```
 
 ### Frontend
+
 ```bash
 cd frontend
 npm install
-npm start
+npm run dev
 ```
 
-## From project root
+## 4) Root npm scripts
+
 ```bash
 npm run start:backend
 npm run start:frontend
-# or run both
 npm run start:all
+npm run seed
 ```
 
-## Verify
+## 5) Verify
+
+- API docs: `http://localhost:8000/docs`
 - API health: `http://localhost:8000/health`
-- App: `http://localhost:5173`
+- Frontend app: `http://localhost:5173`

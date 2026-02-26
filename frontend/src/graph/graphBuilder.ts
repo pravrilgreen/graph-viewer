@@ -22,9 +22,10 @@ const buildTransition = (transition: TransitionDto, idx: number): GraphTransitio
   const actionType = transition.action?.type || 'click';
   const actionDescription = transition.action?.description || '';
   const actionParams = transition.action?.params || {};
+  const transitionId = transition.transition_id || `${transition.from_screen}->${transition.to_screen}::${actionType}::${idx}`;
 
   return {
-    id: `${transition.from_screen}->${transition.to_screen}::${actionType}::${idx}`,
+    id: transitionId,
     from: transition.from_screen,
     to: transition.to_screen,
     action: {

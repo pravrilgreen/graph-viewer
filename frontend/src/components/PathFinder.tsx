@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { GraphStatsDto, pathAPI } from '../api';
 import SearchableCombobox from './SearchableCombobox';
 
@@ -6,56 +6,56 @@ interface PathOption {
   id: string;
   label: string;
   path: string[];
+  transitionIds: string[];
+  routeMode: 'simple' | 'shortest';
   totalWeight?: number;
 }
 
 interface PathFinderProps {
   screens: string[];
   stats: GraphStatsDto;
+  networkCount: number;
+  networkOptions: number[];
+  selectedNetworkId: 'all' | number;
+  onSelectNetwork: (networkId: 'all' | number) => void;
   onPathFound: (paths: string[][]) => void;
+  onPathTransitionsFound: (transitionIds: string[]) => void;
   onPathRouteClick: (path: string[]) => void;
   onPathStepClick: (screenId: string) => void;
+  onFindingChange: (isFinding: boolean) => void;
   onNotify: (type: 'success' | 'error' | 'info', message: string) => void;
 }
 
-const toPathOption = (item: any, label: string, id: string): PathOption | null => {
+const toPathOption = (item: any, label: string, id: string, routeMode: 'simple' | 'shortest'): PathOption | null => {
   if (!item || !Array.isArray(item.path) || item.path.length === 0) {
     return null;
   }
+  const transitionIds = Array.isArray(item.transitions)
+    ? item.transitions
+        .map((transition: any) => transition?.transition_id)
+        .filter((transitionId: unknown): transitionId is string => typeof transitionId === 'string' && transitionId.length > 0)
+    : [];
   return {
     id,
     label,
     path: item.path,
+    transitionIds,
+    routeMode,
     totalWeight: typeof item.total_weight === 'number' ? item.total_weight : undefined,
   };
 };
 
 const buildRouteOptions = (mode: 'simple' | 'shortest', apiResult: any): PathOption[] => {
-  if (mode === 'simple') {
-    const items = Array.isArray(apiResult?.paths) ? apiResult.paths : [];
-    const normalizedItems =
-      items.length > 0
-        ? items
-        : [
-            {
-              path: Array.isArray(apiResult?.path) ? apiResult.path : [],
-              total_weight: apiResult?.total_weight,
-            },
-          ];
+  const items = Array.isArray(apiResult?.paths) ? apiResult.paths : [];
 
-    return normalizedItems
-      .map((item: any, idx: number) => toPathOption(item, `Route ${idx + 1}`, `simple-${idx}`))
+  if (mode === 'simple') {
+    return items
+      .map((item: any, idx: number) => toPathOption(item, `Route ${idx + 1}`, `simple-${idx}`, 'simple'))
       .filter((item: PathOption | null): item is PathOption => item !== null);
   }
 
-  const shortestRaw =
-    Array.isArray(apiResult?.paths) && apiResult.paths.length > 0
-      ? apiResult.paths[0]
-      : {
-          path: Array.isArray(apiResult?.path) ? apiResult.path : [],
-          total_weight: apiResult?.total_weight,
-        };
-  const shortest = toPathOption(shortestRaw, 'Shortest', 'shortest-0');
+  const shortestRaw = items[0];
+  const shortest = toPathOption(shortestRaw, 'Shortest', 'shortest-0', 'shortest');
   return shortest ? [shortest] : [];
 };
 
@@ -89,9 +89,15 @@ const resolveScreenId = (value: string, screens: string[]): string | null => {
 const PathFinder: React.FC<PathFinderProps> = ({
   screens,
   stats,
+  networkCount,
+  networkOptions,
+  selectedNetworkId,
+  onSelectNetwork,
   onPathFound,
+  onPathTransitionsFound,
   onPathRouteClick,
   onPathStepClick,
+  onFindingChange,
   onNotify,
 }) => {
   const [fromScreen, setFromScreen] = useState('');
@@ -106,15 +112,24 @@ const PathFinder: React.FC<PathFinderProps> = ({
   );
   const sortedScreens = useMemo(() => [...screens].sort((a, b) => a.localeCompare(b)), [screens]);
 
+  useEffect(() => () => onFindingChange(false), [onFindingChange]);
+
   const clearResult = () => {
     setOptions([]);
     setActiveOptionId(null);
     onPathFound([]);
+    onPathTransitionsFound([]);
+  };
+  const handleSwapScreens = () => {
+    setFromScreen(toScreen);
+    setToScreen(fromScreen);
+    clearResult();
   };
 
   const applyOption = (option: PathOption) => {
     setActiveOptionId(option.id);
     onPathFound([option.path]);
+    onPathTransitionsFound(option.transitionIds);
     onPathRouteClick(option.path);
   };
 
@@ -130,6 +145,8 @@ const PathFinder: React.FC<PathFinderProps> = ({
     setOptions([]);
     setActiveOptionId(null);
     onPathFound([]);
+    onPathTransitionsFound([]);
+    onFindingChange(true);
     setLoadingMode(mode);
 
     try {
@@ -149,12 +166,14 @@ const PathFinder: React.FC<PathFinderProps> = ({
       setOptions(nextOptions);
       setActiveOptionId(firstOption.id);
       onPathFound([firstOption.path]);
+      onPathTransitionsFound(firstOption.transitionIds);
       onPathRouteClick(firstOption.path);
       onNotify('success', `${mode} found ${nextOptions.length} route(s).`);
     } catch (error: any) {
       onNotify('error', error?.response?.data?.detail || 'No valid path was found.');
     } finally {
       setLoadingMode(null);
+      onFindingChange(false);
     }
   };
 
@@ -172,9 +191,42 @@ const PathFinder: React.FC<PathFinderProps> = ({
           <strong>{stats.num_transitions}</strong> Transitions
         </span>
         <span>
-          <strong>D:</strong> {stats.density.toFixed(2)}
+          <strong>Network:</strong>{' '}
+          {selectedNetworkId === 'all' ? `All (${networkCount})` : `${selectedNetworkId + 1}/${networkCount}`}
         </span>
       </div>
+      {networkCount > 1 && (
+        <div>
+          <label className="field-label" htmlFor="network-filter">
+            Network View
+          </label>
+          <select
+            className="field-input"
+            id="network-filter"
+            onChange={(event) => {
+              const value = event.target.value;
+              onSelectNetwork(value === 'all' ? 'all' : Number(value));
+            }}
+            value={selectedNetworkId === 'all' ? 'all' : String(selectedNetworkId)}
+          >
+            <option value="all">All networks</option>
+            {networkOptions.map((networkId) => (
+              <option key={networkId} value={String(networkId)}>
+                Network {networkId + 1}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+      {networkCount > 1 && (
+        <div className="pathfinder-warning" role="alert">
+          Warning: detected
+          {' '}
+          <strong>{networkCount}</strong>
+          {' '}
+          disconnected networks. Expected exactly 1 connected network.
+        </div>
+      )}
 
       <div className="pathfinder-grid">
         <div>
@@ -188,6 +240,24 @@ const PathFinder: React.FC<PathFinderProps> = ({
             placeholder="Type to filter start screen..."
             value={fromScreen}
           />
+        </div>
+
+        <div className="pathfinder-swap-wrap">
+          <button
+            aria-label="Swap from and to screens"
+            className="btn btn-secondary pathfinder-swap-btn"
+            disabled={loadingMode !== null}
+            onClick={handleSwapScreens}
+            type="button"
+            title="Swap from/to"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M7 7h12" />
+              <path d="m15 3 4 4-4 4" />
+              <path d="M17 17H5" />
+              <path d="m9 21-4-4 4-4" />
+            </svg>
+          </button>
         </div>
 
         <div>
@@ -248,21 +318,21 @@ const PathFinder: React.FC<PathFinderProps> = ({
               <div style={{ marginTop: '0.45rem', fontSize: '0.75rem', color: '#166534', fontWeight: 600 }}>
                 {activeOption.label} ({activeOption.path.length} steps)
               </div>
-              <div className="path-result-steps" style={{ marginTop: '0.3rem' }}>
+              <div className="route-steps" style={{ marginTop: '0.35rem' }}>
                 {activeOption.path.map((screen, idx) => (
-                  <React.Fragment key={`${screen}-${idx}`}>
-                    <button
-                      className="btn btn-secondary path-step-btn"
-                      onClick={() => {
-                        onPathFound([activeOption.path]);
-                        onPathStepClick(screen);
-                      }}
-                      type="button"
-                    >
-                      {screen}
-                    </button>
-                    {idx < activeOption.path.length - 1 && <span style={{ margin: '0 0.15rem', opacity: 0.6 }}>{'->'}</span>}
-                  </React.Fragment>
+                  <button
+                    className="route-step-chip"
+                    key={`${screen}-${idx}`}
+                    onClick={() => {
+                      onPathFound([activeOption.path]);
+                      onPathTransitionsFound(activeOption.transitionIds);
+                      onPathStepClick(screen);
+                    }}
+                    type="button"
+                  >
+                    <span className="route-step-index">{idx + 1}</span>
+                    <span className="route-step-name">{screen}</span>
+                  </button>
                 ))}
               </div>
               {typeof activeOption.totalWeight === 'number' && (

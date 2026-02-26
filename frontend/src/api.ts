@@ -15,6 +15,7 @@ export interface ScreenDto {
 }
 
 export interface TransitionDto {
+  transition_id?: string;
   from_screen: string;
   to_screen: string;
   action: {
@@ -116,6 +117,7 @@ export const transitionAPI = {
    * Update an existing transition
    */
   updateTransition: async (data: {
+    transition_id?: string;
     from_screen: string;
     to_screen: string;
     action: {
@@ -133,8 +135,10 @@ export const transitionAPI = {
   /**
    * Delete a transition
    */
-  deleteTransition: async (fromScreen: string, toScreen: string) => {
-    await api.delete(`/transitions/${fromScreen}/${toScreen}`);
+  deleteTransition: async (fromScreen: string, toScreen: string, transitionId?: string) => {
+    await api.delete(`/transitions/${fromScreen}/${toScreen}`, {
+      params: transitionId ? { transition_id: transitionId } : undefined,
+    });
   },
 
   /**

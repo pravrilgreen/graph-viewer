@@ -2,7 +2,7 @@
 Pydantic schemas for request/response validation.
 """
 
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional
 
 from pydantic import BaseModel, Field
 
@@ -48,6 +48,7 @@ class TransitionAction(BaseModel):
 
 class TransitionCreate(BaseModel):
     """Schema for creating a transition"""
+    transition_id: Optional[str] = Field(default=None, description="Transition identifier (optional)")
     from_screen: str = Field(..., description="Source screen ID")
     to_screen: str = Field(..., description="Target screen ID")
     action: Optional[TransitionAction] = Field(default=None, description="Structured action object")
@@ -60,6 +61,7 @@ class TransitionCreate(BaseModel):
 
 class TransitionUpdate(BaseModel):
     """Schema for updating a transition"""
+    transition_id: Optional[str] = Field(default=None, description="Transition identifier (recommended)")
     from_screen: str = Field(..., description="Source screen ID")
     to_screen: str = Field(..., description="Target screen ID")
     action: Optional[TransitionAction] = Field(default=None, description="Structured action object")
@@ -90,7 +92,7 @@ class TriggerTransition(BaseModel):
 
 class GraphExport(BaseModel):
     """Schema for graph export/import"""
-    screens: Optional[List[Union[str, dict]]] = Field(default=None, description="Optional list of screens")
+    screens: Optional[List[Screen]] = Field(default=None, description="Optional list of screens")
     transitions: List[dict] = Field(..., description="List of transitions")
     conditions: Optional[List[dict]] = Field(default=None, description="List of conditions")
 

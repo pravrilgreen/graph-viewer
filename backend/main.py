@@ -2,18 +2,19 @@
 FastAPI backend for Graph Viewer
 """
 
-import json
 import os
 import logging
+from pathlib import Path
 from fastapi import FastAPI, HTTPException, Query, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from typing import List
+from dotenv import load_dotenv
 
 from graph_service import GraphService
 from models import Transition, Screen
-from seed import SEED_DATA
+from data_source import build_graph_data_source, GraphDataSourceError
 from schemas import (
     ScreenCreate,
     ScreenRename,
@@ -49,7 +50,10 @@ app.add_middleware(
 graph_service = GraphService()
 
 # Configuration
-GRAPH_FILE = os.getenv("GRAPH_FILE", "graph_data.json")
+BASE_DIR = Path(__file__).resolve().parent
+load_dotenv(BASE_DIR / ".env")
+DEFAULT_GRAPH_FILE = Path(__file__).resolve().parent / "graph_data.json"
+graph_data_source = build_graph_data_source(DEFAULT_GRAPH_FILE)
 MOCK_SCREENS_DIR = os.path.join(os.path.dirname(__file__), "mock-screens")
 
 if os.path.isdir(MOCK_SCREENS_DIR):
@@ -60,33 +64,20 @@ if os.path.isdir(MOCK_SCREENS_DIR):
 
 
 def load_graph_from_file():
-    """Load graph from file if it exists, fallback to seed data otherwise."""
-    if os.path.exists(GRAPH_FILE):
-        try:
-            with open(GRAPH_FILE, "r") as f:
-                data = json.load(f)
-                graph_service.import_graph(data)
-
-            stats = graph_service.get_graph_stats()
-            if stats["num_screens"] == 0:
-                graph_service.import_graph(SEED_DATA)
-                save_graph_to_file()
-        except Exception as e:
-            print(f"Error loading graph: {e}")
-            graph_service.import_graph(SEED_DATA)
-            save_graph_to_file()
-    else:
-        graph_service.import_graph(SEED_DATA)
-        save_graph_to_file()
+    """Load graph from configured data source."""
+    try:
+        data = graph_data_source.load_graph()
+        graph_service.import_graph(data)
+    except GraphDataSourceError as exc:
+        raise RuntimeError(str(exc)) from exc
 
 
 def save_graph_to_file():
-    """Save graph to file"""
+    """Save graph to configured data source."""
     try:
-        with open(GRAPH_FILE, "w") as f:
-            json.dump(graph_service.export_graph(), f, indent=2)
-    except Exception as e:
-        print(f"Error saving graph: {e}")
+        graph_data_source.save_graph(graph_service.export_graph())
+    except GraphDataSourceError as exc:
+        print(f"Error saving graph: {exc}")
 
 
 # Load graph on startup
@@ -109,7 +100,7 @@ async def root():
 @app.get("/health")
 async def health_check():
     """Health check endpoint"""
-    return {"status": "healthy", "service": "graph-viewer"}
+    return {"status": "healthy", "service": "graph-viewer", "data_source": graph_data_source.name}
 
 
 # ===================== Screen Endpoints =====================
@@ -244,21 +235,20 @@ async def create_transition(transition: TransitionCreate):
             detail="weight must be >= 1",
         )
 
-    # Ensure screens exist
     if not graph_service.get_screen(from_screen):
-        graph_service.add_screen(from_screen)
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Screen '{from_screen}' not found",
+        )
 
     if not graph_service.get_screen(to_screen):
-        graph_service.add_screen(to_screen)
-
-    # Check if transition already exists
-    if graph_service.get_transition(from_screen, to_screen):
         raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT,
-            detail=f"Transition from '{from_screen}' to '{to_screen}' already exists",
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Screen '{to_screen}' not found",
         )
 
     trans_model = Transition(
+        transition_id=transition.transition_id,
         from_screen=from_screen,
         to_screen=to_screen,
         action_type=action_type,
@@ -268,7 +258,13 @@ async def create_transition(transition: TransitionCreate):
         actionParams=action_params,
     )
 
-    result = graph_service.add_transition(trans_model)
+    try:
+        result = graph_service.add_transition(trans_model)
+    except ValueError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(exc),
+        ) from exc
     save_graph_to_file()
     return result.to_dict()
 
@@ -280,13 +276,67 @@ async def get_transitions():
 
 
 @app.get("/transitions/{from_screen}/{to_screen}", response_model=dict)
-async def get_transition(from_screen: str, to_screen: str):
-    """Get a specific transition"""
-    transition = graph_service.get_transition(from_screen, to_screen)
+async def get_transition(from_screen: str, to_screen: str, transition_id: str | None = Query(default=None)):
+    """Get a specific transition (must provide transition_id when multiple transitions exist)."""
+    candidates = graph_service.get_transitions_between(from_screen, to_screen)
+    if len(candidates) > 1 and not transition_id:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=(
+                f"Multiple transitions exist from '{from_screen}' to '{to_screen}'. "
+                "Provide transition_id or use /transitions/{from_screen}/{to_screen}/all."
+            ),
+        )
+
+    transition = graph_service.get_transition(from_screen, to_screen, transition_id=transition_id)
     if not transition:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Transition from '{from_screen}' to '{to_screen}' not found",
+            detail=(
+                f"Transition '{transition_id}' not found"
+                if transition_id
+                else f"Transition from '{from_screen}' to '{to_screen}' not found"
+            ),
+        )
+    return transition.to_dict()
+
+
+@app.get("/transitions/{from_screen}/{to_screen}/all", response_model=List[dict])
+async def get_transitions_between(from_screen: str, to_screen: str):
+    """Get all transitions between two screens."""
+    return [t.to_dict() for t in graph_service.get_transitions_between(from_screen, to_screen)]
+
+
+@app.get("/transitions/grouped", response_model=List[dict])
+async def get_transitions_grouped():
+    """Get transitions grouped by (from_screen, to_screen)."""
+    groups: dict[tuple[str, str], list[dict]] = {}
+    for transition in graph_service.get_all_transitions():
+        key = (transition.from_screen, transition.to_screen)
+        groups.setdefault(key, []).append(transition.to_dict())
+
+    return [
+        {
+            "from_screen": from_screen,
+            "to_screen": to_screen,
+            "transitions": transitions,
+            "count": len(transitions),
+        }
+        for (from_screen, to_screen), transitions in sorted(groups.items(), key=lambda item: (item[0][0], item[0][1]))
+    ]
+
+
+@app.get("/transitions/id/{transition_id}", response_model=dict)
+async def get_transition_by_id(transition_id: str):
+    """Get a specific transition by transition_id."""
+    transition = next(
+        (item for item in graph_service.get_all_transitions() if item.transition_id == transition_id),
+        None,
+    )
+    if not transition:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Transition '{transition_id}' not found",
         )
     return transition.to_dict()
 
@@ -320,7 +370,19 @@ async def update_transition(transition: TransitionUpdate):
             detail="action.type is required",
         )
 
+    if not transition.transition_id:
+        candidates = graph_service.get_transitions_between(transition.from_screen, transition.to_screen)
+        if len(candidates) > 1:
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail=(
+                    f"Multiple transitions exist from '{transition.from_screen}' to '{transition.to_screen}'. "
+                    "Provide transition_id to update a specific transition."
+                ),
+            )
+
     trans_model = Transition(
+        transition_id=transition.transition_id,
         from_screen=transition.from_screen,
         to_screen=transition.to_screen,
         action_type=action_type,
@@ -330,7 +392,13 @@ async def update_transition(transition: TransitionUpdate):
         actionParams=action_params,
     )
 
-    result = graph_service.update_transition(trans_model)
+    try:
+        result = graph_service.update_transition(trans_model)
+    except ValueError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(exc),
+        ) from exc
     if not result:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -342,12 +410,26 @@ async def update_transition(transition: TransitionUpdate):
 
 
 @app.delete("/transitions/{from_screen}/{to_screen}", status_code=status.HTTP_204_NO_CONTENT)
-async def delete_transition(from_screen: str, to_screen: str):
-    """Delete a transition"""
-    if not graph_service.delete_transition(from_screen, to_screen):
+async def delete_transition(from_screen: str, to_screen: str, transition_id: str | None = Query(default=None)):
+    """Delete a transition (specific transition_id when provided, first match otherwise)."""
+    candidates = graph_service.get_transitions_between(from_screen, to_screen)
+    if len(candidates) > 1 and not transition_id:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=(
+                f"Multiple transitions exist from '{from_screen}' to '{to_screen}'. "
+                "Provide transition_id to delete a specific transition."
+            ),
+        )
+
+    if not graph_service.delete_transition(from_screen, to_screen, transition_id=transition_id):
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Transition from '{from_screen}' to '{to_screen}' not found",
+            detail=(
+                f"Transition '{transition_id}' not found"
+                if transition_id
+                else f"Transition from '{from_screen}' to '{to_screen}' not found"
+            ),
         )
     save_graph_to_file()
 
@@ -365,6 +447,7 @@ async def trigger_transition(trigger: dict):
     """
     from_screen = trigger.get("from_screen")
     to_screen = trigger.get("to_screen")
+    transition_id = trigger.get("transition_id")
     
     if not from_screen or not to_screen:
         raise HTTPException(
@@ -372,7 +455,17 @@ async def trigger_transition(trigger: dict):
             detail="from_screen and to_screen are required",
         )
     
-    transition = graph_service.get_transition(from_screen, to_screen)
+    candidates = graph_service.get_transitions_between(from_screen, to_screen)
+    if len(candidates) > 1 and not transition_id:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=(
+                f"Multiple transitions exist from '{from_screen}' to '{to_screen}'. "
+                "Provide transition_id to trigger a specific transition."
+            ),
+        )
+
+    transition = graph_service.get_transition(from_screen, to_screen, transition_id=transition_id)
     if not transition:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,

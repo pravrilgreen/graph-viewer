@@ -21,6 +21,7 @@ const SearchableCombobox: React.FC<SearchableComboboxProps> = ({
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState(-1);
+  const inputRef = React.useRef<HTMLInputElement | null>(null);
   const listId = React.useMemo(() => `${id || 'combo'}-listbox`, [id]);
 
   const filtered = React.useMemo(() => {
@@ -61,8 +62,9 @@ const SearchableCombobox: React.FC<SearchableComboboxProps> = ({
         aria-autocomplete="list"
         aria-controls={listId}
         aria-expanded={isOpen}
-        className="field-input"
+        className="field-input combobox__input"
         id={id}
+        ref={inputRef}
         onBlur={() => {
           window.setTimeout(() => {
             setIsOpen(false);
@@ -103,6 +105,23 @@ const SearchableCombobox: React.FC<SearchableComboboxProps> = ({
         role="combobox"
         value={value}
       />
+      {value.trim().length > 0 && (
+        <button
+          aria-label="Clear input"
+          className="combobox__clear"
+          onClick={() => {
+            onChange('');
+            setIsOpen(true);
+            inputRef.current?.focus();
+          }}
+          onMouseDown={(event) => {
+            event.preventDefault();
+          }}
+          type="button"
+        >
+          ×
+        </button>
+      )}
 
       {isOpen && (
         <ul className="combobox__list" id={listId} role="listbox">

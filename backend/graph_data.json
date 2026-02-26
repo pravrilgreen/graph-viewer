@@ -17,60 +17,16 @@
       "imagePath": "/mock-screens/settings.svg"
     },
     {
-      "screen_id": "media_player",
-      "imagePath": "/mock-screens/media_player.svg"
-    },
-    {
-      "screen_id": "phone",
-      "imagePath": "/mock-screens/phone.svg"
-    },
-    {
-      "screen_id": "navigation",
-      "imagePath": "/mock-screens/navigation.svg"
-    },
-    {
-      "screen_id": "climate_control",
-      "imagePath": "/mock-screens/climate_control.svg"
+      "screen_id": "profile",
+      "imagePath": "/mock-screens/profile.svg"
     },
     {
       "screen_id": "notifications",
       "imagePath": "/mock-screens/notifications.svg"
     },
     {
-      "screen_id": "profile",
-      "imagePath": "/mock-screens/profile.svg"
-    },
-    {
-      "screen_id": "trip_planner",
-      "imagePath": "/mock-screens/trip_planner.svg"
-    },
-    {
-      "screen_id": "charging_map",
-      "imagePath": "/mock-screens/charging_map.svg"
-    },
-    {
-      "screen_id": "messages",
-      "imagePath": "/mock-screens/messages.svg"
-    },
-    {
-      "screen_id": "calendar",
-      "imagePath": "/mock-screens/calendar.svg"
-    },
-    {
-      "screen_id": "camera",
-      "imagePath": "/mock-screens/camera.svg"
-    },
-    {
       "screen_id": "help_center",
       "imagePath": "/mock-screens/help_center.svg"
-    },
-    {
-      "screen_id": "update_center",
-      "imagePath": "/mock-screens/update_center.svg"
-    },
-    {
-      "screen_id": "diagnostics",
-      "imagePath": "/mock-screens/diagnostics.svg"
     },
     {
       "screen_id": "display_settings",
@@ -93,24 +49,48 @@
       "imagePath": "/mock-screens/vehicle_settings.svg"
     },
     {
-      "screen_id": "wifi_setup",
-      "imagePath": "/mock-screens/wifi_setup.svg"
+      "screen_id": "media_player",
+      "imagePath": "/mock-screens/media_player.svg"
     },
     {
-      "screen_id": "bluetooth_pairing",
-      "imagePath": "/mock-screens/bluetooth_pairing.svg"
+      "screen_id": "phone",
+      "imagePath": "/mock-screens/phone.svg"
     },
     {
-      "screen_id": "drive_modes",
-      "imagePath": "/mock-screens/drive_modes.svg"
+      "screen_id": "messages",
+      "imagePath": "/mock-screens/messages.svg"
+    },
+    {
+      "screen_id": "calendar",
+      "imagePath": "/mock-screens/calendar.svg"
+    },
+    {
+      "screen_id": "camera",
+      "imagePath": "/mock-screens/camera.svg"
+    },
+    {
+      "screen_id": "navigation",
+      "imagePath": "/mock-screens/navigation.svg"
+    },
+    {
+      "screen_id": "trip_planner",
+      "imagePath": "/mock-screens/trip_planner.svg"
+    },
+    {
+      "screen_id": "charging_map",
+      "imagePath": "/mock-screens/charging_map.svg"
+    },
+    {
+      "screen_id": "climate_control",
+      "imagePath": "/mock-screens/climate_control.svg"
     },
     {
       "screen_id": "energy_dashboard",
       "imagePath": "/mock-screens/energy_dashboard.svg"
     },
     {
-      "screen_id": "onboarding",
-      "imagePath": "/mock-screens/onboarding.svg"
+      "screen_id": "drive_modes",
+      "imagePath": "/mock-screens/drive_modes.svg"
     },
     {
       "screen_id": "confirmation",
@@ -119,629 +99,46 @@
     {
       "screen_id": "error_modal",
       "imagePath": "/mock-screens/error_modal.svg"
+    },
+    {
+      "screen_id": "onboarding",
+      "imagePath": "/mock-screens/onboarding.svg"
+    },
+    {
+      "screen_id": "wifi_setup",
+      "imagePath": "/mock-screens/wifi_setup.svg"
+    },
+    {
+      "screen_id": "bluetooth_pairing",
+      "imagePath": "/mock-screens/bluetooth_pairing.svg"
+    },
+    {
+      "screen_id": "update_center",
+      "imagePath": "/mock-screens/update_center.svg"
+    },
+    {
+      "screen_id": "diagnostics",
+      "imagePath": "/mock-screens/diagnostics.svg"
+    },
+    {
+      "screen_id": "dummy_screen_1",
+      "imagePath": "/mock-screens/dummy_screen_1.svg"
+    },
+    {
+      "screen_id": "dummy_screen_2",
+      "imagePath": "/mock-screens/dummy_screen_2.svg"
     }
   ],
   "transitions": [
     {
-      "from_screen": "home",
-      "to_screen": "nav_menu",
-      "action": {
-        "type": "click",
-        "description": "Open nav_menu",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "nav_menu",
-      "to_screen": "home",
-      "action": {
-        "type": "hardware_button",
-        "description": "Back to home",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "home",
-      "to_screen": "search",
-      "action": {
-        "type": "click",
-        "description": "Open search",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "search",
-      "to_screen": "home",
-      "action": {
-        "type": "hardware_button",
-        "description": "Back to home",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "home",
-      "to_screen": "settings",
-      "action": {
-        "type": "click",
-        "description": "Open settings",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "settings",
-      "to_screen": "home",
-      "action": {
-        "type": "hardware_button",
-        "description": "Back to home",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "home",
-      "to_screen": "media_player",
-      "action": {
-        "type": "click",
-        "description": "Open media_player",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "media_player",
-      "to_screen": "home",
-      "action": {
-        "type": "hardware_button",
-        "description": "Back to home",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "home",
-      "to_screen": "phone",
-      "action": {
-        "type": "click",
-        "description": "Open phone",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "phone",
-      "to_screen": "home",
-      "action": {
-        "type": "hardware_button",
-        "description": "Back to home",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "home",
-      "to_screen": "navigation",
-      "action": {
-        "type": "click",
-        "description": "Open navigation",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "navigation",
-      "to_screen": "home",
-      "action": {
-        "type": "hardware_button",
-        "description": "Back to home",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "home",
-      "to_screen": "climate_control",
-      "action": {
-        "type": "click",
-        "description": "Open climate_control",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "climate_control",
-      "to_screen": "home",
-      "action": {
-        "type": "hardware_button",
-        "description": "Back to home",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "home",
-      "to_screen": "notifications",
-      "action": {
-        "type": "click",
-        "description": "Open notifications",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "notifications",
-      "to_screen": "home",
-      "action": {
-        "type": "hardware_button",
-        "description": "Back to home",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "home",
-      "to_screen": "profile",
-      "action": {
-        "type": "click",
-        "description": "Open profile",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "profile",
-      "to_screen": "home",
-      "action": {
-        "type": "hardware_button",
-        "description": "Back to home",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "nav_menu",
-      "to_screen": "navigation",
-      "action": {
-        "type": "click",
-        "description": "Navigate to navigation",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "nav_menu",
-      "to_screen": "trip_planner",
-      "action": {
-        "type": "click",
-        "description": "Navigate to trip_planner",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "nav_menu",
-      "to_screen": "charging_map",
-      "action": {
-        "type": "click",
-        "description": "Navigate to charging_map",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "nav_menu",
-      "to_screen": "media_player",
-      "action": {
-        "type": "click",
-        "description": "Navigate to media_player",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "nav_menu",
-      "to_screen": "phone",
-      "action": {
-        "type": "click",
-        "description": "Navigate to phone",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "nav_menu",
-      "to_screen": "messages",
-      "action": {
-        "type": "click",
-        "description": "Navigate to messages",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "nav_menu",
-      "to_screen": "calendar",
-      "action": {
-        "type": "click",
-        "description": "Navigate to calendar",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "nav_menu",
-      "to_screen": "camera",
-      "action": {
-        "type": "click",
-        "description": "Navigate to camera",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "nav_menu",
-      "to_screen": "settings",
-      "action": {
-        "type": "click",
-        "description": "Navigate to settings",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "nav_menu",
-      "to_screen": "help_center",
-      "action": {
-        "type": "click",
-        "description": "Navigate to help_center",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "nav_menu",
-      "to_screen": "update_center",
-      "action": {
-        "type": "click",
-        "description": "Navigate to update_center",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "nav_menu",
-      "to_screen": "diagnostics",
-      "action": {
-        "type": "click",
-        "description": "Navigate to diagnostics",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "search",
-      "to_screen": "navigation",
-      "action": {
-        "type": "click",
-        "description": "Open route result",
-        "params": {
-          "result_index": "0",
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2",
-        "search_query_ready"
-      ],
-      "weight": 2
-    },
-    {
-      "from_screen": "search",
-      "to_screen": "phone",
-      "action": {
-        "type": "click",
-        "description": "Call contact from search",
-        "params": {
-          "contact_type": "mobile",
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2",
-        "contact_has_phone"
-      ],
-      "weight": 2
-    },
-    {
-      "from_screen": "search",
-      "to_screen": "settings",
-      "action": {
-        "type": "click",
-        "description": "Open settings from search",
-        "params": {
-          "entry": "quick_setting",
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 2
-    },
-    {
-      "from_screen": "settings",
-      "to_screen": "display_settings",
-      "action": {
-        "type": "click",
-        "description": "Open display_settings",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "display_settings",
-      "to_screen": "settings",
-      "action": {
-        "type": "click",
-        "description": "Back to settings",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "settings",
-      "to_screen": "audio_settings",
-      "action": {
-        "type": "click",
-        "description": "Open audio_settings",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
+      "transition_id": "d085d7bdbe3f4e9fa3361d1682677890",
       "from_screen": "audio_settings",
       "to_screen": "settings",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
       "action": {
         "type": "click",
         "description": "Back to settings",
@@ -749,241 +146,17 @@
           "param1": "value1",
           "param2": "value2"
         }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
+      }
     },
     {
-      "from_screen": "settings",
-      "to_screen": "connectivity_settings",
-      "action": {
-        "type": "click",
-        "description": "Open connectivity_settings",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "connectivity_settings",
-      "to_screen": "settings",
-      "action": {
-        "type": "click",
-        "description": "Back to settings",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "settings",
-      "to_screen": "privacy_settings",
-      "action": {
-        "type": "click",
-        "description": "Open privacy_settings",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "privacy_settings",
-      "to_screen": "settings",
-      "action": {
-        "type": "click",
-        "description": "Back to settings",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "settings",
-      "to_screen": "vehicle_settings",
-      "action": {
-        "type": "click",
-        "description": "Open vehicle_settings",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "vehicle_settings",
-      "to_screen": "settings",
-      "action": {
-        "type": "click",
-        "description": "Back to settings",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "settings",
-      "to_screen": "update_center",
-      "action": {
-        "type": "click",
-        "description": "Open update_center",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "update_center",
-      "to_screen": "settings",
-      "action": {
-        "type": "click",
-        "description": "Back to settings",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "settings",
-      "to_screen": "diagnostics",
-      "action": {
-        "type": "click",
-        "description": "Open diagnostics",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "diagnostics",
-      "to_screen": "settings",
-      "action": {
-        "type": "click",
-        "description": "Back to settings",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "connectivity_settings",
-      "to_screen": "wifi_setup",
-      "action": {
-        "type": "click",
-        "description": "Configure Wi-Fi",
-        "params": {
-          "source": "connectivity",
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2",
-        "wifi_available"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "connectivity_settings",
-      "to_screen": "bluetooth_pairing",
-      "action": {
-        "type": "click",
-        "description": "Pair Bluetooth",
-        "params": {
-          "pair_mode": "manual",
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2",
-        "bluetooth_enabled"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "wifi_setup",
-      "to_screen": "connectivity_settings",
-      "action": {
-        "type": "click",
-        "description": "Save Wi-Fi setup",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
+      "transition_id": "927157bb533b499f8ef533c30cbd4964",
       "from_screen": "bluetooth_pairing",
       "to_screen": "connectivity_settings",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
       "action": {
         "type": "click",
         "description": "Finish Bluetooth pairing",
@@ -991,154 +164,18 @@
           "param1": "value1",
           "param2": "value2"
         }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
+      }
     },
     {
-      "from_screen": "vehicle_settings",
-      "to_screen": "drive_modes",
-      "action": {
-        "type": "click",
-        "description": "Set drive mode",
-        "params": {
-          "mode_target": "sport",
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
+      "transition_id": "61b5c5f980884e4db932c1bfb6fa30e5",
+      "from_screen": "calendar",
+      "to_screen": "navigation",
       "conditionIds": [
         "condition_id_1",
         "condition_id_2",
-        "vehicle_in_park"
+        "event_has_location"
       ],
-      "weight": 1
-    },
-    {
-      "from_screen": "vehicle_settings",
-      "to_screen": "energy_dashboard",
-      "action": {
-        "type": "click",
-        "description": "Open energy dashboard",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "drive_modes",
-      "to_screen": "vehicle_settings",
-      "action": {
-        "type": "click",
-        "description": "Back to vehicle settings",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "media_player",
-      "to_screen": "phone",
-      "action": {
-        "type": "swipe",
-        "description": "Swipe to phone widget",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "phone",
-      "to_screen": "media_player",
-      "action": {
-        "type": "swipe",
-        "description": "Swipe to media widget",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "phone",
-      "to_screen": "messages",
-      "action": {
-        "type": "click",
-        "description": "Open recent message",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "messages",
-      "to_screen": "phone",
-      "action": {
-        "type": "hardware_button",
-        "description": "Back to phone",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "messages",
-      "to_screen": "calendar",
-      "action": {
-        "type": "click",
-        "description": "Schedule from message",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "calendar",
-      "to_screen": "navigation",
+      "weight": 2,
       "action": {
         "type": "click",
         "description": "Navigate to event",
@@ -1147,85 +184,17 @@
           "param1": "value1",
           "param2": "value2"
         }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2",
-        "event_has_location"
-      ],
-      "weight": 2
+      }
     },
     {
-      "from_screen": "navigation",
-      "to_screen": "trip_planner",
-      "action": {
-        "type": "click",
-        "description": "Open planner",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "trip_planner",
-      "to_screen": "navigation",
-      "action": {
-        "type": "click",
-        "description": "Start navigation",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "navigation",
-      "to_screen": "charging_map",
-      "action": {
-        "type": "click",
-        "description": "Find charging station",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "charging_map",
-      "to_screen": "navigation",
-      "action": {
-        "type": "click",
-        "description": "Route to station",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
+      "transition_id": "db71381ceafd419bbfe8c957c27f0f8b",
       "from_screen": "charging_map",
       "to_screen": "energy_dashboard",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
       "action": {
         "type": "click",
         "description": "Show charging stats",
@@ -1233,16 +202,35 @@
           "param1": "value1",
           "param2": "value2"
         }
-      },
+      }
+    },
+    {
+      "transition_id": "466f3e85d1974eca9327fa4e668f76b0",
+      "from_screen": "charging_map",
+      "to_screen": "navigation",
       "conditionIds": [
         "condition_id_1",
         "condition_id_2"
       ],
-      "weight": 1
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Route to station",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
     },
     {
+      "transition_id": "98c4f58332894b87a8799769ba7bdcdb",
       "from_screen": "climate_control",
       "to_screen": "energy_dashboard",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
       "action": {
         "type": "swipe",
         "description": "Swipe to energy panel",
@@ -1250,84 +238,35 @@
           "param1": "value1",
           "param2": "value2"
         }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
+      }
     },
     {
-      "from_screen": "energy_dashboard",
-      "to_screen": "climate_control",
-      "action": {
-        "type": "swipe",
-        "description": "Back to climate panel",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "onboarding",
-      "to_screen": "wifi_setup",
-      "action": {
-        "type": "click",
-        "description": "Setup internet first",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
-    },
-    {
-      "from_screen": "onboarding",
+      "transition_id": "6880e0c0cfa94222b30d31814f908863",
+      "from_screen": "climate_control",
       "to_screen": "home",
-      "action": {
-        "type": "click",
-        "description": "Skip onboarding",
-        "params": {
-          "param1": "value1",
-          "param2": "value2"
-        }
-      },
       "conditionIds": [
         "condition_id_1",
         "condition_id_2"
       ],
-      "weight": 1
-    },
-    {
-      "from_screen": "update_center",
-      "to_screen": "confirmation",
+      "weight": 1,
       "action": {
-        "type": "click",
-        "description": "Confirm update",
+        "type": "hardware_button",
+        "description": "Back to home",
         "params": {
           "param1": "value1",
           "param2": "value2"
         }
-      },
-      "conditionIds": [
-        "condition_id_1",
-        "condition_id_2"
-      ],
-      "weight": 1
+      }
     },
     {
+      "transition_id": "9e94c2d8d8944c4da2236098298af8e5",
       "from_screen": "confirmation",
       "to_screen": "update_center",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
       "action": {
         "type": "hardware_button",
         "description": "Back to update center",
@@ -1335,16 +274,77 @@
           "param1": "value1",
           "param2": "value2"
         }
-      },
+      }
+    },
+    {
+      "transition_id": "f227cbf23a9f48949a5e3e36af7c1499",
+      "from_screen": "connectivity_settings",
+      "to_screen": "bluetooth_pairing",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2",
+        "bluetooth_enabled"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Pair Bluetooth",
+        "params": {
+          "pair_mode": "manual",
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "bc89bfc3819e423081541cec8fc962d8",
+      "from_screen": "connectivity_settings",
+      "to_screen": "settings",
       "conditionIds": [
         "condition_id_1",
         "condition_id_2"
       ],
-      "weight": 1
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Back to settings",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
     },
     {
+      "transition_id": "d8b41d15b4c447ad9c85b8c13ee310ef",
+      "from_screen": "connectivity_settings",
+      "to_screen": "wifi_setup",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2",
+        "wifi_available"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Configure Wi-Fi",
+        "params": {
+          "source": "connectivity",
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "b85be2a6cd49409db1270761208efb0a",
       "from_screen": "diagnostics",
       "to_screen": "error_modal",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2",
+        "fault_detected",
+        "severity_high"
+      ],
+      "weight": 3,
       "action": {
         "type": "auto",
         "description": "Trigger issue screen",
@@ -1353,18 +353,187 @@
           "param1": "value1",
           "param2": "value2"
         }
-      },
+      }
+    },
+    {
+      "transition_id": "4e3c82ffa61547a1aa2734abd3120e94",
+      "from_screen": "display_settings",
+      "to_screen": "settings",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Back to settings",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "c2a10ee797824463993b1c42f7d8b55a",
+      "from_screen": "drive_modes",
+      "to_screen": "vehicle_settings",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Back to vehicle settings",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "76f84e70fb684c57919615a259415cfe",
+      "from_screen": "dummy_screen_1",
+      "to_screen": "dummy_screen_2",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "swipe",
+        "description": "Go to dummy screen 2",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "b236f3e976da4d729cc2761317dd4a95",
+      "from_screen": "dummy_screen_1",
+      "to_screen": "dummy_screen_2",
       "conditionIds": [
         "condition_id_1",
         "condition_id_2",
-        "fault_detected",
-        "severity_high"
+        "shortcut_enabled"
       ],
-      "weight": 3
+      "weight": 2,
+      "action": {
+        "type": "click",
+        "description": "Open dummy screen 2 via shortcut",
+        "params": {
+          "entry": "shortcut_button",
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
     },
     {
+      "transition_id": "ee6ddf07724b4068a2ac3af5330d93a4",
+      "from_screen": "dummy_screen_1",
+      "to_screen": "dummy_screen_2",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2",
+        "hardware_key_mapped"
+      ],
+      "weight": 3,
+      "action": {
+        "type": "hardware_button",
+        "description": "Jump to dummy screen 2 via hardware key",
+        "params": {
+          "key": "F1",
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "395f42159a0c491fb989e21f35b222cc",
+      "from_screen": "dummy_screen_2",
+      "to_screen": "dummy_screen_1",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2",
+        "quick_action_available"
+      ],
+      "weight": 2,
+      "action": {
+        "type": "click",
+        "description": "Return to dummy screen 1 from quick action",
+        "params": {
+          "entry": "quick_return",
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "bccfceb24ad7468db22bf936b1757fde",
+      "from_screen": "dummy_screen_2",
+      "to_screen": "dummy_screen_1",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2",
+        "hardware_key_mapped"
+      ],
+      "weight": 3,
+      "action": {
+        "type": "hardware_button",
+        "description": "Return to dummy screen 1 via hardware key",
+        "params": {
+          "key": "F2",
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "db06a67119144b5e9fc51b8f82f13f4e",
+      "from_screen": "dummy_screen_2",
+      "to_screen": "dummy_screen_1",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "swipe",
+        "description": "Back to dummy screen 1",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "264d00d476834e319ba85c9447d4bc2e",
+      "from_screen": "energy_dashboard",
+      "to_screen": "climate_control",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "swipe",
+        "description": "Back to climate panel",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "6b88e1c57ec548cbbcf9c3a10959dfd2",
       "from_screen": "error_modal",
       "to_screen": "diagnostics",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
       "action": {
         "type": "click",
         "description": "Dismiss issue panel",
@@ -1372,16 +541,17 @@
           "param1": "value1",
           "param2": "value2"
         }
-      },
+      }
+    },
+    {
+      "transition_id": "8d4d55d6eeb040a1895255e9b84a6ec4",
+      "from_screen": "error_modal",
+      "to_screen": "help_center",
       "conditionIds": [
         "condition_id_1",
         "condition_id_2"
       ],
-      "weight": 1
-    },
-    {
-      "from_screen": "error_modal",
-      "to_screen": "help_center",
+      "weight": 1,
       "action": {
         "type": "click",
         "description": "Open troubleshooting",
@@ -1389,16 +559,17 @@
           "param1": "value1",
           "param2": "value2"
         }
-      },
+      }
+    },
+    {
+      "transition_id": "9465a8ac438d4983b28310a89f5a6a33",
+      "from_screen": "help_center",
+      "to_screen": "home",
       "conditionIds": [
         "condition_id_1",
         "condition_id_2"
       ],
-      "weight": 1
-    },
-    {
-      "from_screen": "help_center",
-      "to_screen": "home",
+      "weight": 1,
       "action": {
         "type": "hardware_button",
         "description": "Return to home",
@@ -1406,54 +577,896 @@
           "param1": "value1",
           "param2": "value2"
         }
-      },
+      }
+    },
+    {
+      "transition_id": "b530e612c9a74964b14fcc5a2473e4b3",
+      "from_screen": "home",
+      "to_screen": "climate_control",
       "conditionIds": [
         "condition_id_1",
         "condition_id_2"
       ],
-      "weight": 1
-    },
-    {
-      "from_screen": "onboarding",
-      "to_screen": "error_modal",
+      "weight": 1,
       "action": {
         "type": "click",
-        "description": "Auto-created transition from onboarding to error_modal",
+        "description": "Open climate_control",
         "params": {
           "param1": "value1",
           "param2": "value2"
         }
-      },
-      "conditionIds": [],
-      "weight": 1
+      }
     },
     {
-      "from_screen": "camera",
-      "to_screen": "vehicle_settings",
+      "transition_id": "17f7e5a1a050407f909086f6efcb6b86",
+      "from_screen": "home",
+      "to_screen": "media_player",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
       "action": {
         "type": "click",
-        "description": "Auto-created transition from camera to vehicle_settings",
+        "description": "Open media_player",
         "params": {
           "param1": "value1",
           "param2": "value2"
         }
-      },
-      "conditionIds": [],
-      "weight": 1
+      }
     },
     {
-      "from_screen": "onboarding",
+      "transition_id": "0e98411e9aa149c8a33b19c6cbee74ab",
+      "from_screen": "home",
       "to_screen": "nav_menu",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
       "action": {
         "type": "click",
-        "description": "Auto-created transition from onboarding to nav_menu",
+        "description": "Open nav_menu",
         "params": {
           "param1": "value1",
           "param2": "value2"
         }
-      },
-      "conditionIds": [],
-      "weight": 1
+      }
+    },
+    {
+      "transition_id": "c9effd9a87964acf85dff07bad512271",
+      "from_screen": "home",
+      "to_screen": "navigation",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Open navigation",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "d4e17f934bce4f94ad6aeb8f70cf0fbf",
+      "from_screen": "home",
+      "to_screen": "notifications",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Open notifications",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "e70b9dd371d04a92a836072a599a6506",
+      "from_screen": "home",
+      "to_screen": "phone",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Open phone",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "c6d9b6ff8c5047379347c723d0a7a7fb",
+      "from_screen": "home",
+      "to_screen": "profile",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Open profile",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "d6eab2a947d6443abb6285b5ea4be5d2",
+      "from_screen": "home",
+      "to_screen": "search",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Open search",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "330733806ad14a9d952fe6f075d77643",
+      "from_screen": "home",
+      "to_screen": "settings",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Open settings",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "6f41cf52af27420ab92e873587998f7a",
+      "from_screen": "media_player",
+      "to_screen": "home",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "hardware_button",
+        "description": "Back to home",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "4daf8c2ecfdb458bbf755fc33a3bf1c6",
+      "from_screen": "media_player",
+      "to_screen": "phone",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "swipe",
+        "description": "Swipe to phone widget",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "5b67028ca2c84dd7a5a72a4fd71615b7",
+      "from_screen": "messages",
+      "to_screen": "calendar",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Schedule from message",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "ce282b06a1044a5fab850f1961fb1ee2",
+      "from_screen": "messages",
+      "to_screen": "phone",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "hardware_button",
+        "description": "Back to phone",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "ee72198a6fed42698c6463c1d81d1c87",
+      "from_screen": "nav_menu",
+      "to_screen": "calendar",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Navigate to calendar",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "2466c4613fb94bec988bfa23a71348b6",
+      "from_screen": "nav_menu",
+      "to_screen": "camera",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Navigate to camera",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "602a3e4b95a848c481ef6d4c8f2b3558",
+      "from_screen": "nav_menu",
+      "to_screen": "charging_map",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Navigate to charging_map",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "fc7b9252201e4e0d96a28ecbfd714c80",
+      "from_screen": "nav_menu",
+      "to_screen": "diagnostics",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Navigate to diagnostics",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "cd79ce568a494feba3588b869d12d242",
+      "from_screen": "nav_menu",
+      "to_screen": "help_center",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Navigate to help_center",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "be436a4dda8746d5b9151416dbe0ac45",
+      "from_screen": "nav_menu",
+      "to_screen": "home",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "hardware_button",
+        "description": "Back to home",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "113fccc31a784eb5b680d620496eb2bd",
+      "from_screen": "nav_menu",
+      "to_screen": "media_player",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Navigate to media_player",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "74c9e69218d6446ead5de87bbeb3f54d",
+      "from_screen": "nav_menu",
+      "to_screen": "messages",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Navigate to messages",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "96063f58ca3240a79f5d4431905aefc6",
+      "from_screen": "nav_menu",
+      "to_screen": "navigation",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Navigate to navigation",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "136b1d3663f1498aa1e9258fa05e38bb",
+      "from_screen": "nav_menu",
+      "to_screen": "phone",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Navigate to phone",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "ed08e85f3bc74e0ebd24fef7f21f4b55",
+      "from_screen": "nav_menu",
+      "to_screen": "settings",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Navigate to settings",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "41bb473e7ecd4d529169730b2ff46de9",
+      "from_screen": "nav_menu",
+      "to_screen": "trip_planner",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Navigate to trip_planner",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "9e80907abaa14d81b1bb53fcba9a1fdc",
+      "from_screen": "nav_menu",
+      "to_screen": "update_center",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Navigate to update_center",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "ed756133269943888a2912bd300b63dd",
+      "from_screen": "navigation",
+      "to_screen": "charging_map",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Find charging station",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "b77e015320e845999cadebd3c150a8b9",
+      "from_screen": "navigation",
+      "to_screen": "home",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "hardware_button",
+        "description": "Back to home",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "20e2b8fad2534ba4a5244dfaea8ad07a",
+      "from_screen": "navigation",
+      "to_screen": "trip_planner",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Open planner",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "983c36d01f5343db9a998cfada410130",
+      "from_screen": "notifications",
+      "to_screen": "home",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "hardware_button",
+        "description": "Back to home",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "65386afbec6644fda8b97954a6398d6a",
+      "from_screen": "onboarding",
+      "to_screen": "home",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Skip onboarding",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "751aabd1cf3b487887c752d7e0a94259",
+      "from_screen": "onboarding",
+      "to_screen": "wifi_setup",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Setup internet first",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "546bf11adb144596ad6b0bd0385d6b1f",
+      "from_screen": "phone",
+      "to_screen": "home",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "hardware_button",
+        "description": "Back to home",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "0d007ecb9a7249a5b21d1d5b9c07a5e2",
+      "from_screen": "phone",
+      "to_screen": "media_player",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "swipe",
+        "description": "Swipe to media widget",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "51aabaf071aa4b83a9efc143b71e8f3c",
+      "from_screen": "phone",
+      "to_screen": "messages",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Open recent message",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "9ff29b383ecf4c1984d8f727ca1d483a",
+      "from_screen": "profile",
+      "to_screen": "home",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "hardware_button",
+        "description": "Back to home",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "5e9c254e13804a8e92eac91ed6257323",
+      "from_screen": "search",
+      "to_screen": "home",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "hardware_button",
+        "description": "Back to home",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "c4498a84da324443a0a8754e2b68aff8",
+      "from_screen": "search",
+      "to_screen": "navigation",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2",
+        "search_query_ready"
+      ],
+      "weight": 2,
+      "action": {
+        "type": "click",
+        "description": "Open route result",
+        "params": {
+          "result_index": "0",
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "30bb0f6f753043fab644571cdee3543a",
+      "from_screen": "search",
+      "to_screen": "phone",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2",
+        "contact_has_phone"
+      ],
+      "weight": 2,
+      "action": {
+        "type": "click",
+        "description": "Call contact from search",
+        "params": {
+          "contact_type": "mobile",
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "ce9aad37a3d54a7da9e7668cf091ecca",
+      "from_screen": "search",
+      "to_screen": "settings",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 2,
+      "action": {
+        "type": "click",
+        "description": "Open settings from search",
+        "params": {
+          "entry": "quick_setting",
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "f10e6dabc3df4caea60b195d98925a6c",
+      "from_screen": "settings",
+      "to_screen": "audio_settings",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Open audio_settings",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "87d9a9d526ce4b4c8399e8b987ddf430",
+      "from_screen": "settings",
+      "to_screen": "connectivity_settings",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Open connectivity_settings",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "618a91b5c6b14070bff19217eff7a5f5",
+      "from_screen": "settings",
+      "to_screen": "display_settings",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Open display_settings",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "6415f113878a464284ab900c000bf09b",
+      "from_screen": "settings",
+      "to_screen": "home",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "hardware_button",
+        "description": "Back to home",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "66b3694825f04a22b9b99b48d4bcbeb2",
+      "from_screen": "trip_planner",
+      "to_screen": "navigation",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Start navigation",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "4279a259910243b79a617e4707d955eb",
+      "from_screen": "update_center",
+      "to_screen": "confirmation",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Confirm update",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "72fc1c6ecdfb485fb01b6ce3216d78e1",
+      "from_screen": "vehicle_settings",
+      "to_screen": "drive_modes",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2",
+        "vehicle_in_park"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Set drive mode",
+        "params": {
+          "mode_target": "sport",
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "21698d82dbe94489ae5e4e77675c81e8",
+      "from_screen": "vehicle_settings",
+      "to_screen": "energy_dashboard",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Open energy dashboard",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
+    },
+    {
+      "transition_id": "04f65a487a6d440d80bd20dd3f01efe5",
+      "from_screen": "wifi_setup",
+      "to_screen": "connectivity_settings",
+      "conditionIds": [
+        "condition_id_1",
+        "condition_id_2"
+      ],
+      "weight": 1,
+      "action": {
+        "type": "click",
+        "description": "Save Wi-Fi setup",
+        "params": {
+          "param1": "value1",
+          "param2": "value2"
+        }
+      }
     }
   ]
 }

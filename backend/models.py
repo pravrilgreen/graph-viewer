@@ -51,10 +51,12 @@ class Transition:
     weight: int = 1
     conditionIds: Optional[List[str]] = field(default=None)
     actionParams: Optional[Dict[str, str]] = field(default=None)
+    transition_id: Optional[str] = None
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert transition to dictionary"""
         return {
+            "transition_id": self.transition_id,
             "from_screen": self.from_screen,
             "to_screen": self.to_screen,
             "conditionIds": self.conditionIds or [],
@@ -98,6 +100,7 @@ class Transition:
         weight = metrics.get("weight") if metrics.get("weight") is not None else data.get("weight", 1)
 
         return Transition(
+            transition_id=data.get("transition_id"),
             from_screen=data.get("from_screen"),
             to_screen=data.get("to_screen"),
             action_type=action_type,
@@ -125,14 +128,18 @@ class Screen:
     def from_dict(data: Dict[str, Any]) -> "Screen":
         """Create screen from dictionary"""
         if isinstance(data, str):
-            return build_default_screen(data)
+            raise ValueError("Screen entry must be an object with 'screen_id' and 'imagePath'")
 
         screen_id = data.get("screen_id")
-        default_screen = build_default_screen(screen_id)
         media = data.get("media") or {}
+        image_path = data.get("imagePath") or media.get("imageUrl")
+        if not screen_id:
+            raise ValueError("Screen entry is missing 'screen_id'")
+        if not image_path:
+            raise ValueError(f"Screen '{screen_id}' is missing 'imagePath'")
         return Screen(
             screen_id=screen_id,
-            imagePath=data.get("imagePath") or media.get("imageUrl") or default_screen.imagePath,
+            imagePath=image_path,
         )
 
 
