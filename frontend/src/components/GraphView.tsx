@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import {
   Background,
+  BackgroundVariant,
   Connection,
   Controls,
   Edge,
@@ -14,6 +15,7 @@ import 'reactflow/dist/style.css';
 
 import CustomNode from './CustomNode';
 import CustomEdge from './CustomEdge';
+import SearchableCombobox from './SearchableCombobox';
 
 interface GraphViewProps {
   nodes: Node[];
@@ -34,10 +36,14 @@ interface GraphViewProps {
   selectedEdgeId?: string | null;
   highlightedPaths?: string[][];
   highlightedTransitionIds?: string[];
+  searchOptions: string[];
+  onFocusScreen: (query: string) => void;
 }
 
 const nodeTypes: NodeTypes = { custom: CustomNode };
 const edgeTypes = { default: CustomEdge };
+type GraphTone = 'light' | 'dark';
+type GraphPattern = 'flat' | 'dot';
 
 const toNumber = (value: unknown, fallback: number) => {
   if (typeof value === 'number' && Number.isFinite(value)) {
@@ -103,7 +109,13 @@ const GraphView: React.FC<GraphViewProps> = ({
   selectedEdgeId,
   highlightedPaths = [],
   highlightedTransitionIds = [],
+  searchOptions,
+  onFocusScreen,
 }) => {
+  const [searchValue, setSearchValue] = React.useState('');
+  const [tone, setTone] = React.useState<GraphTone>('dark');
+  const [pattern, setPattern] = React.useState<GraphPattern>('dot');
+  const searchFormRef = React.useRef<HTMLFormElement | null>(null);
   const [reactFlowInstance, setReactFlowInstance] = React.useState<ReactFlowInstance | null>(null);
   const pendingRouteFitFrame = React.useRef<number | null>(null);
   const previousNetworkIdRef = React.useRef<number | null | undefined>(undefined);
@@ -474,8 +486,78 @@ const GraphView: React.FC<GraphViewProps> = ({
     densityTuning.routePadding,
   ]);
 
+  const handleSearchSubmit = React.useCallback(() => {
+    const query = searchValue.trim();
+    if (!query) {
+      return;
+    }
+    onFocusScreen(query);
+  }, [onFocusScreen, searchValue]);
+
   return (
-    <div className="graph-canvas-wrap">
+    <div className={`graph-canvas-wrap graph-tone-${tone} graph-pattern-${pattern}`}>
+      <div className="graph-overlay-search">
+        <form
+          className="graph-search-fab"
+          onSubmit={(event) => {
+            event.preventDefault();
+            handleSearchSubmit();
+          }}
+          ref={searchFormRef}
+        >
+          <button
+            aria-label="Focus search input"
+            className="graph-search-fab__icon"
+            onClick={() => {
+              const input = searchFormRef.current?.querySelector('input');
+              if (input instanceof HTMLInputElement) {
+                input.focus();
+              }
+            }}
+            type="button"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="7" />
+              <path d="M20 20l-3.5-3.5" />
+            </svg>
+          </button>
+          <SearchableCombobox
+            className="graph-search-fab__input"
+            emptyText="No matching screen"
+            options={searchOptions}
+            placeholder="Find screen id..."
+            value={searchValue}
+            onChange={setSearchValue}
+          />
+        </form>
+      </div>
+      <div className="graph-overlay-controls">
+        <button
+          aria-label={`Switch tone (current: ${tone})`}
+          className="graph-theme-btn"
+          onClick={() => setTone((prev) => (prev === 'light' ? 'dark' : 'light'))}
+          title={tone === 'light' ? 'Light mode' : 'Dark mode'}
+          type="button"
+        >
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M12 3a9 9 0 1 0 9 9h-9z" />
+            <path d="M12 3v9h9" />
+          </svg>
+        </button>
+        <button
+          aria-label={`Switch pattern (current: ${pattern})`}
+          className="graph-theme-btn"
+          onClick={() => setPattern((prev) => (prev === 'flat' ? 'dot' : 'flat'))}
+          title={pattern === 'flat' ? 'Flat background' : 'Dot background'}
+          type="button"
+        >
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <circle cx="5.5" cy="5.5" r="1.4" />
+            <circle cx="12" cy="12" r="1.4" />
+            <circle cx="18.5" cy="18.5" r="1.4" />
+          </svg>
+        </button>
+      </div>
       <ReactFlow
         className="graph-canvas"
         connectionLineStyle={{ stroke: '#64748b', strokeWidth: 2 }}
@@ -498,7 +580,14 @@ const GraphView: React.FC<GraphViewProps> = ({
         onNodesChange={onNodesChange}
         onPaneClick={onPaneClick}
       >
-        <Background color="#d4d4d8" gap={24} size={1} />
+        {pattern === 'dot' && (
+          <Background
+            color={tone === 'light' ? '#cbd5e1' : '#475569'}
+            gap={22}
+            size={1.15}
+            variant={BackgroundVariant.Dots}
+          />
+        )}
         <Controls showInteractive={false} />
       </ReactFlow>
       <div

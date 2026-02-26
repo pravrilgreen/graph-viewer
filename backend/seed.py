@@ -3,6 +3,7 @@ Seed script to populate the graph with sample data
 """
 
 import json
+from models import build_default_screen
 
 def build_seed_data():
     screen_ids = [
@@ -40,7 +41,7 @@ def build_seed_data():
         "dummy_screen_2",
     ]
 
-    screens = [{"screen_id": screen_id, "imagePath": f"/mock-screens/{screen_id}.svg"} for screen_id in screen_ids]
+    screens = [build_default_screen(screen_id).to_dict() for screen_id in screen_ids]
 
     transitions = []
     default_condition_ids = ["condition_id_1", "condition_id_2"]
@@ -221,3 +222,4 @@ def create_seed_file():
 
 if __name__ == "__main__":
     create_seed_file()
+

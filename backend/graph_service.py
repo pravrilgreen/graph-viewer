@@ -91,6 +91,7 @@ class GraphService:
         renamed_screen = build_default_screen(new_screen_id) if old_screen is None else Screen(
             screen_id=new_screen_id,
             imagePath=old_screen.imagePath,
+            identityRegions=old_screen.identityRegions,
         )
 
         nx.relabel_nodes(self.graph, {old_screen_id: new_screen_id}, copy=False)

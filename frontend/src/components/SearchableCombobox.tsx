@@ -119,7 +119,7 @@ const SearchableCombobox: React.FC<SearchableComboboxProps> = ({
           }}
           type="button"
         >
-          ×
+          x
         </button>
       )}
 
@@ -153,3 +153,4 @@ const SearchableCombobox: React.FC<SearchableComboboxProps> = ({
 };
 
 export default SearchableCombobox;
+

@@ -6,6 +6,9 @@ import re
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
+DEFAULT_MAIN_IMAGE_REGION = {"x": 0, "y": 0, "w": 0, "h": 0}
+DEFAULT_TITLE_REGION = {"x": 0, "y": 0, "w": 0, "h": 0}
+
 
 @dataclass
 class Condition:
@@ -116,13 +119,17 @@ class Screen:
     """Represents a node (screen) in the graph"""
     screen_id: str
     imagePath: str
+    identityRegions: Optional[Dict[str, List[Dict[str, Any]]]] = field(default=None)
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert screen to dictionary"""
-        return {
+        payload = {
             "screen_id": self.screen_id,
             "imagePath": self.imagePath,
         }
+        if self.identityRegions is not None:
+            payload["identityRegions"] = self.identityRegions
+        return payload
 
     @staticmethod
     def from_dict(data: Dict[str, Any]) -> "Screen":
@@ -140,6 +147,7 @@ class Screen:
         return Screen(
             screen_id=screen_id,
             imagePath=image_path,
+            identityRegions=data.get("identityRegions"),
         )
 
 
@@ -148,9 +156,32 @@ def _to_slug(value: str) -> str:
     return slug or "screen"
 
 
+def build_default_identity_regions(screen_id: str) -> Dict[str, Any]:
+    """Build default identity region payload for a screen."""
+    # Keep defaults deterministic and neutral.
+    # Do not infer translated labels here to avoid incorrect metadata.
+    neutral_text = screen_id
+    return {
+        "image": [
+            {
+                "id": "main_frame",
+                "region": dict(DEFAULT_MAIN_IMAGE_REGION),
+            },
+        ],
+        "text": [
+            {
+                "id": "title",
+                "region": dict(DEFAULT_TITLE_REGION),
+                "values": {"vn": neutral_text, "en": neutral_text},
+            },
+        ],
+    }
+
+
 def build_default_screen(screen_id: str) -> Screen:
     slug = _to_slug(screen_id)
     return Screen(
         screen_id=screen_id,
         imagePath=f"/mock-screens/{slug}.svg",
+        identityRegions=build_default_identity_regions(screen_id),
     )

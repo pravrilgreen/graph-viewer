@@ -2,131 +2,1027 @@
   "screens": [
     {
       "screen_id": "home",
-      "imagePath": "/mock-screens/home.svg"
+      "imagePath": "/mock-screens/home.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "Nha",
+              "en": "Home"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "nav_menu",
-      "imagePath": "/mock-screens/nav_menu.svg"
+      "imagePath": "/mock-screens/nav_menu.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "nav menu",
+              "en": "Nav Menu"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "search",
-      "imagePath": "/mock-screens/search.svg"
+      "imagePath": "/mock-screens/search.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "search",
+              "en": "Search"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "settings",
-      "imagePath": "/mock-screens/settings.svg"
+      "imagePath": "/mock-screens/settings.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "settings",
+              "en": "Settings"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "profile",
-      "imagePath": "/mock-screens/profile.svg"
+      "imagePath": "/mock-screens/profile.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "profile",
+              "en": "Profile"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "notifications",
-      "imagePath": "/mock-screens/notifications.svg"
+      "imagePath": "/mock-screens/notifications.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "notifications",
+              "en": "Notifications"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "help_center",
-      "imagePath": "/mock-screens/help_center.svg"
+      "imagePath": "/mock-screens/help_center.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "help center",
+              "en": "Help Center"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "display_settings",
-      "imagePath": "/mock-screens/display_settings.svg"
+      "imagePath": "/mock-screens/display_settings.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "display settings",
+              "en": "Display Settings"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "audio_settings",
-      "imagePath": "/mock-screens/audio_settings.svg"
+      "imagePath": "/mock-screens/audio_settings.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "audio settings",
+              "en": "Audio Settings"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "connectivity_settings",
-      "imagePath": "/mock-screens/connectivity_settings.svg"
+      "imagePath": "/mock-screens/connectivity_settings.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "connectivity settings",
+              "en": "Connectivity Settings"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "privacy_settings",
-      "imagePath": "/mock-screens/privacy_settings.svg"
+      "imagePath": "/mock-screens/privacy_settings.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "privacy settings",
+              "en": "Privacy Settings"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "vehicle_settings",
-      "imagePath": "/mock-screens/vehicle_settings.svg"
+      "imagePath": "/mock-screens/vehicle_settings.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "vehicle settings",
+              "en": "Vehicle Settings"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "media_player",
-      "imagePath": "/mock-screens/media_player.svg"
+      "imagePath": "/mock-screens/media_player.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "media player",
+              "en": "Media Player"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "phone",
-      "imagePath": "/mock-screens/phone.svg"
+      "imagePath": "/mock-screens/phone.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "phone",
+              "en": "Phone"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "messages",
-      "imagePath": "/mock-screens/messages.svg"
+      "imagePath": "/mock-screens/messages.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "messages",
+              "en": "Messages"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "calendar",
-      "imagePath": "/mock-screens/calendar.svg"
+      "imagePath": "/mock-screens/calendar.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "calendar",
+              "en": "Calendar"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "camera",
-      "imagePath": "/mock-screens/camera.svg"
+      "imagePath": "/mock-screens/camera.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "camera",
+              "en": "Camera"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "navigation",
-      "imagePath": "/mock-screens/navigation.svg"
+      "imagePath": "/mock-screens/navigation.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "navigation",
+              "en": "Navigation"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "trip_planner",
-      "imagePath": "/mock-screens/trip_planner.svg"
+      "imagePath": "/mock-screens/trip_planner.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "trip planner",
+              "en": "Trip Planner"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "charging_map",
-      "imagePath": "/mock-screens/charging_map.svg"
+      "imagePath": "/mock-screens/charging_map.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "charging map",
+              "en": "Charging Map"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "climate_control",
-      "imagePath": "/mock-screens/climate_control.svg"
+      "imagePath": "/mock-screens/climate_control.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "climate control",
+              "en": "Climate Control"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "energy_dashboard",
-      "imagePath": "/mock-screens/energy_dashboard.svg"
+      "imagePath": "/mock-screens/energy_dashboard.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "energy dashboard",
+              "en": "Energy Dashboard"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "drive_modes",
-      "imagePath": "/mock-screens/drive_modes.svg"
+      "imagePath": "/mock-screens/drive_modes.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "drive modes",
+              "en": "Drive Modes"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "confirmation",
-      "imagePath": "/mock-screens/confirmation.svg"
+      "imagePath": "/mock-screens/confirmation.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "confirmation",
+              "en": "Confirmation"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "error_modal",
-      "imagePath": "/mock-screens/error_modal.svg"
+      "imagePath": "/mock-screens/error_modal.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "error modal",
+              "en": "Error Modal"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "onboarding",
-      "imagePath": "/mock-screens/onboarding.svg"
+      "imagePath": "/mock-screens/onboarding.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "onboarding",
+              "en": "Onboarding"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "wifi_setup",
-      "imagePath": "/mock-screens/wifi_setup.svg"
+      "imagePath": "/mock-screens/wifi_setup.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "wifi setup",
+              "en": "Wifi Setup"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "bluetooth_pairing",
-      "imagePath": "/mock-screens/bluetooth_pairing.svg"
+      "imagePath": "/mock-screens/bluetooth_pairing.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "bluetooth pairing",
+              "en": "Bluetooth Pairing"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "update_center",
-      "imagePath": "/mock-screens/update_center.svg"
+      "imagePath": "/mock-screens/update_center.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "update center",
+              "en": "Update Center"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "diagnostics",
-      "imagePath": "/mock-screens/diagnostics.svg"
+      "imagePath": "/mock-screens/diagnostics.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "diagnostics",
+              "en": "Diagnostics"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "dummy_screen_1",
-      "imagePath": "/mock-screens/dummy_screen_1.svg"
+      "imagePath": "/mock-screens/dummy_screen_1.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "dummy screen 1",
+              "en": "Dummy Screen 1"
+            }
+          }
+        ]
+      }
     },
     {
       "screen_id": "dummy_screen_2",
-      "imagePath": "/mock-screens/dummy_screen_2.svg"
+      "imagePath": "/mock-screens/dummy_screen_2.svg",
+      "identityRegions": {
+        "image": [
+          {
+            "id": "main_frame",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "text": [
+          {
+            "id": "title",
+            "region": {
+              "x": 0,
+              "y": 0,
+              "w": 0,
+              "h": 0
+            },
+            "values": {
+              "vn": "dummy screen 2",
+              "en": "Dummy Screen 2"
+            }
+          }
+        ]
+      }
     }
   ],
   "transitions": [

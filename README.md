@@ -12,7 +12,7 @@ Graph Viewer is a full-stack app to visualize and edit screen transition graphs.
 
 - Visual graph editor for screens and transitions
 - Multi-edge transitions between the same source/target pair
-- CRUD APIs for screens and transitions
+- Read-only screen APIs and transition editing APIs
 - Path finding:
   - shortest path (weighted)
   - simple path (minimum hops)
@@ -103,31 +103,23 @@ This writes `backend/graph_data.json`.
 ## API overview
 
 - Screens:
-  - `POST /screens`
-  - `PUT /screens/rename`
   - `GET /screens`
   - `GET /screens/{screen_id}`
-  - `DELETE /screens/{screen_id}`
 - Transitions:
-  - `POST /transitions`
   - `GET /transitions`
   - `GET /transitions/{from_screen}/{to_screen}`
   - `GET /transitions/{from_screen}/{to_screen}/all`
   - `GET /transitions/grouped`
   - `GET /transitions/id/{transition_id}`
   - `PUT /transitions`
-  - `DELETE /transitions/{from_screen}/{to_screen}`
-  - `POST /transitions/trigger`
 - Paths:
   - `GET /path/shortest`
   - `GET /path/simple`
 - Graph:
-  - `GET /graph/export`
-  - `POST /graph/import`
-  - `POST /graph/clear`
   - `GET /graph/stats`
 
 ## Notes
 
 - In multi-edge scenarios, prefer using `transition_id` for update/delete/trigger operations.
 - In MongoDB mode, backend expects one graph document per `graph_id`.
+- Each screen can include `identityRegions` with explicit objects: `image[].region` and `text[].region`, plus `text[].values` (for example `vn`, `en`).

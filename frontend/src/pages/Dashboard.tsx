@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Connection, Edge, Node, useEdgesState, useNodesState } from 'reactflow';
 
 import { GraphStatsDto, ScreenDto, graphAPI, screenAPI, transitionAPI } from '../api';
-import ActionBar from '../components/ActionBar';
 import EdgeEditor from '../components/EdgeEditor';
 import GraphView from '../components/GraphView';
 import NodeEditor from '../components/NodeEditor';
@@ -10,12 +9,6 @@ import PathFinder from '../components/PathFinder';
 import ToastStack, { ToastMessage, ToastType } from '../components/ToastStack';
 import { buildGraphModel } from '../graph/graphBuilder';
 import { buildGraphLayout } from '../graph/graphLayout';
-
-interface GraphState {
-  nodes: Node[];
-  edges: Edge[];
-  screens: ScreenDto[];
-}
 
 const defaultStats: GraphStatsDto = {
   num_screens: 0,
@@ -30,9 +23,6 @@ const Dashboard: React.FC = () => {
   const [screens, setScreens] = useState<ScreenDto[]>([]);
   const [highlightedPaths, setHighlightedPaths] = useState<string[][]>([]);
   const [highlightedTransitionIds, setHighlightedTransitionIds] = useState<string[]>([]);
-
-  const [history, setHistory] = useState<GraphState[]>([]);
-  const [historyIndex, setHistoryIndex] = useState(-1);
 
   const [selectedNode, setSelectedNode] = useState<Node | null>(null);
   const [selectedEdge, setSelectedEdge] = useState<Edge | null>(null);
@@ -59,40 +49,25 @@ const Dashboard: React.FC = () => {
     setToasts((prev) => prev.filter((toast) => toast.id !== id));
   }, []);
 
-  const loadGraph = useCallback(
-    async (keepHistory = false) => {
-      try {
-        const [screensData, transitionsData, statsData] = await Promise.all([
-          screenAPI.getAllScreens(),
-          transitionAPI.getAllTransitions(),
-          graphAPI.getStats(),
-        ]);
+  const loadGraph = useCallback(async () => {
+    try {
+      const [screensData, transitionsData, statsData] = await Promise.all([
+        screenAPI.getAllScreens(),
+        transitionAPI.getAllTransitions(),
+        graphAPI.getStats(),
+      ]);
 
-        const graphModel = buildGraphModel(screensData, transitionsData);
-        const { nodes: graphNodes, edges: graphEdges } = await buildGraphLayout(graphModel);
+      const graphModel = buildGraphModel(screensData, transitionsData);
+      const { nodes: graphNodes, edges: graphEdges } = await buildGraphLayout(graphModel);
 
-        setScreens(screensData);
-        setStats(statsData);
-        setNodes(graphNodes);
-        setEdges(graphEdges);
-
-        if (keepHistory) {
-          setHistory((prev) => {
-            const trimmed = prev.slice(0, historyIndex + 1);
-            trimmed.push({ nodes: graphNodes, edges: graphEdges, screens: screensData });
-            return trimmed;
-          });
-          setHistoryIndex((prev) => prev + 1);
-        } else {
-          setHistory([{ nodes: graphNodes, edges: graphEdges, screens: screensData }]);
-          setHistoryIndex(0);
-        }
-      } catch (error: any) {
-        pushToast('error', error?.response?.data?.detail || 'Unable to load graph data.');
-      }
-    },
-    [historyIndex, pushToast, setEdges, setNodes],
-  );
+      setScreens(screensData);
+      setStats(statsData);
+      setNodes(graphNodes);
+      setEdges(graphEdges);
+    } catch (error: any) {
+      pushToast('error', error?.response?.data?.detail || 'Unable to load graph data.');
+    }
+  }, [pushToast, setEdges, setNodes]);
 
   useEffect(() => {
     loadGraph();
@@ -107,48 +82,6 @@ const Dashboard: React.FC = () => {
     },
     [],
   );
-
-  const handleUndo = () => {
-    if (historyIndex <= 0) {
-      return;
-    }
-    const prevIndex = historyIndex - 1;
-    const prevState = history[prevIndex];
-    setHistoryIndex(prevIndex);
-    setNodes(prevState.nodes);
-    setEdges(prevState.edges);
-    setScreens(prevState.screens);
-  };
-
-  const handleRedo = () => {
-    if (historyIndex >= history.length - 1) {
-      return;
-    }
-    const nextIndex = historyIndex + 1;
-    const nextState = history[nextIndex];
-    setHistoryIndex(nextIndex);
-    setNodes(nextState.nodes);
-    setEdges(nextState.edges);
-    setScreens(nextState.screens);
-  };
-
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'z' && !event.shiftKey) {
-        event.preventDefault();
-        handleUndo();
-      } else if (
-        (event.ctrlKey || event.metaKey) &&
-        (event.key.toLowerCase() === 'y' || (event.shiftKey && event.key.toLowerCase() === 'z'))
-      ) {
-        event.preventDefault();
-        handleRedo();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleRedo, handleUndo]);
 
   const onConnect = (_connection: Connection) => {
     pushToast('info', 'Drag-to-connect is disabled.');
@@ -408,7 +341,7 @@ const Dashboard: React.FC = () => {
             onClose={() => setSelectedEdge(null)}
             onNotify={pushToast}
             onSaved={async () => {
-              await loadGraph(true);
+              await loadGraph();
             }}
           />
         </>
@@ -468,19 +401,6 @@ const Dashboard: React.FC = () => {
         </div>
       </header>
 
-      <section className="top-row">
-        <ActionBar
-          canRedo={historyIndex < history.length - 1}
-          canUndo={historyIndex > 0}
-          onFocusScreen={handleFocusScreen}
-          onNotify={pushToast}
-          onRedo={handleRedo}
-          onRefresh={() => loadGraph(true)}
-          screenIds={visibleScreenIds}
-          onUndo={handleUndo}
-        />
-      </section>
-
       <div className="layout-grid">
         <section className="graph-panel">
           <GraphView
@@ -523,6 +443,8 @@ const Dashboard: React.FC = () => {
             activeNetworkId={selectedNetworkId === 'all' ? null : selectedNetworkId}
             selectedEdgeId={selectedEdge?.id || null}
             selectedNodeId={selectedNode?.id || null}
+            searchOptions={visibleScreenIds}
+            onFocusScreen={handleFocusScreen}
           />
         </section>
 

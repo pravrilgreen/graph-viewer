@@ -85,12 +85,6 @@ h3 {
   margin: 0;
 }
 
-.top-row {
-  display: flex;
-  gap: 1rem;
-  align-items: stretch;
-}
-
 .layout-grid {
   display: grid;
   gap: 1rem;
@@ -294,53 +288,6 @@ h3 {
   min-width: 1.8rem;
   height: 1.8rem;
   padding: 0;
-}
-
-/* Action Bar */
-.action-bar {
-  border-radius: 0.75rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  background: var(--bg-alt);
-  border: 1px solid var(--border);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  flex: 1;
-  align-items: center;
-}
-
-.action-bar__group {
-  display: flex;
-  gap: 0.35rem;
-  align-items: center;
-}
-
-.action-bar__divider {
-  width: 1px;
-  height: 1.5rem;
-  background: var(--border);
-  margin: 0 0.25rem;
-}
-
-.action-search {
-  display: flex;
-  gap: 0.35rem;
-  align-items: center;
-  flex: 1;
-  min-width: 200px;
-}
-
-.action-search__input {
-  flex: 1;
-  min-width: 200px;
-  max-width: 300px;
-}
-
-.action-search__select {
-  flex: 1;
-  min-width: 200px;
-  max-width: 320px;
 }
 
 /* Form Fields */
@@ -647,6 +594,120 @@ textarea.field-input {
   position: relative;
 }
 
+.graph-overlay-search {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 30;
+}
+
+.graph-overlay-controls {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.graph-theme-btn {
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 999px;
+  border: 1px solid #cbd5e1;
+  background: rgba(255, 255, 255, 0.92);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+  transition: transform 140ms ease, border-color 140ms ease, background-color 140ms ease;
+}
+
+.graph-theme-btn:hover {
+  transform: translateY(-1px);
+  border-color: #94a3b8;
+  background: #ffffff;
+}
+
+.graph-theme-btn svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: #334155;
+  stroke-width: 1.8;
+}
+
+.graph-search-fab {
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 1px solid #dbe4f0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+  display: flex;
+  align-items: center;
+  overflow: visible;
+  transition: width 180ms ease, border-radius 180ms ease, background-color 180ms ease;
+}
+
+.graph-search-fab:hover,
+.graph-search-fab:focus-within {
+  width: min(420px, calc(100vw - 380px));
+  border-radius: 0.85rem;
+}
+
+.graph-search-fab__icon {
+  width: 2.2rem;
+  height: 2.2rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex: 0 0 2.2rem;
+}
+
+.graph-search-fab__icon svg {
+  width: 0.95rem;
+  height: 0.95rem;
+  fill: none;
+  stroke: #334155;
+  stroke-width: 2;
+}
+
+.graph-search-fab__input {
+  flex: 1;
+  min-width: 0;
+  opacity: 0;
+  transform: translateX(8px);
+  pointer-events: none;
+  transition: opacity 130ms ease, transform 130ms ease;
+}
+
+.graph-search-fab:hover .graph-search-fab__input,
+.graph-search-fab:focus-within .graph-search-fab__input {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.graph-search-fab__input .field-input {
+  min-height: 2rem;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  padding-left: 0.1rem;
+}
+
+.graph-search-fab__input .combobox__list {
+  margin-top: 0.45rem;
+}
+
 .graph-loading-overlay {
   position: absolute;
   inset: 0;
@@ -697,6 +758,16 @@ textarea.field-input {
   border: 2px solid #cbd5e1;
   border-top-color: #2563eb;
   animation: spin 0.72s linear infinite;
+}
+
+.graph-tone-light.graph-pattern-flat .graph-canvas,
+.graph-tone-light.graph-pattern-dot .graph-canvas {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+}
+
+.graph-tone-dark.graph-pattern-flat .graph-canvas,
+.graph-tone-dark.graph-pattern-dot .graph-canvas {
+  background: linear-gradient(180deg, #111827 0%, #0f172a 100%);
 }
 
 /* Toast Notifications */
@@ -823,23 +894,43 @@ textarea.field-input {
     display: none;
   }
 
-  .top-row {
-    flex-direction: column;
+  .graph-overlay-controls {
+    left: 0.65rem;
+    bottom: 0.65rem;
+    justify-content: flex-end;
   }
 
-  .action-bar {
-    flex-direction: column;
+  .graph-overlay-search {
+    left: 0.65rem;
+    right: 0.65rem;
+    top: 0.65rem;
+    display: flex;
+    justify-content: flex-end;
   }
 
-  .action-search {
-    width: 100%;
+  .graph-search-fab:hover,
+  .graph-search-fab:focus-within {
+    width: min(100%, 420px);
   }
 
-  .action-search__input {
-    max-width: none;
+  .graph-theme-btn {
+    width: 2rem;
+    height: 2rem;
   }
 
-  .action-search__select {
+  .graph-search-fab,
+  .graph-search-fab__icon {
+    width: 2rem;
+    height: 2rem;
+    flex-basis: 2rem;
+  }
+
+  .graph-search-fab__input .field-input {
+    min-height: 1.8rem;
+  }
+
+  .graph-search-fab__input .combobox__list {
+    right: 0;
     max-width: none;
   }
 }
