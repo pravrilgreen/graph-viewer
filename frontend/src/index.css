@@ -653,8 +653,7 @@ textarea.field-input {
   transition: width 180ms ease, border-radius 180ms ease, background-color 180ms ease;
 }
 
-.graph-search-fab:hover,
-.graph-search-fab:focus-within {
+.graph-search-fab:hover {
   width: min(420px, calc(100vw - 380px));
   border-radius: 0.85rem;
 }
@@ -689,8 +688,7 @@ textarea.field-input {
   transition: opacity 130ms ease, transform 130ms ease;
 }
 
-.graph-search-fab:hover .graph-search-fab__input,
-.graph-search-fab:focus-within .graph-search-fab__input {
+.graph-search-fab:hover .graph-search-fab__input {
   opacity: 1;
   transform: translateX(0);
   pointer-events: auto;
@@ -705,7 +703,8 @@ textarea.field-input {
 }
 
 .graph-search-fab__input .combobox__list {
-  margin-top: 0.45rem;
+  top: 100%;
+  margin-top: 0;
 }
 
 .graph-loading-overlay {
@@ -908,8 +907,7 @@ textarea.field-input {
     justify-content: flex-end;
   }
 
-  .graph-search-fab:hover,
-  .graph-search-fab:focus-within {
+  .graph-search-fab:hover {
     width: min(100%, 420px);
   }
 

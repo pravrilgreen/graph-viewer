@@ -528,6 +528,7 @@ const GraphView: React.FC<GraphViewProps> = ({
             placeholder="Find screen id..."
             value={searchValue}
             onChange={setSearchValue}
+            onSelect={(screenId) => onFocusScreen(screenId)}
           />
         </form>
       </div>

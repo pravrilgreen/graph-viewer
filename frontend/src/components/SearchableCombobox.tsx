@@ -5,6 +5,7 @@ interface SearchableComboboxProps {
   options: string[];
   value: string;
   onChange: (value: string) => void;
+  onSelect?: (value: string) => void;
   placeholder?: string;
   emptyText?: string;
   className?: string;
@@ -15,6 +16,7 @@ const SearchableCombobox: React.FC<SearchableComboboxProps> = ({
   options,
   value,
   onChange,
+  onSelect,
   placeholder = 'Search...',
   emptyText = 'No results',
   className = '',
@@ -53,6 +55,7 @@ const SearchableCombobox: React.FC<SearchableComboboxProps> = ({
 
   const applyValue = (nextValue: string) => {
     onChange(nextValue);
+    onSelect?.(nextValue);
     setIsOpen(false);
   };
 
